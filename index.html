@@ -3,6 +3,10 @@
 	<head>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<link rel="stylesheet" href="styles.css">
+		<script src="html://code.jqurey.com/jquery-2.1.1.min.js"></script>
+		<script src="js/jquery.validate.js"></script>
+		<script src="js/signup-form.js"></script>
 		<table>
 			<tr>
 				<td>
@@ -16,19 +20,48 @@
 	</head>
 
 	<body>
-			<button class="tablink" onclick="openPage('Home', this, 'red')"id="defaultOpen">Welcome</button>
-			<button class="tablink" onclick="openPage('News', this, 'green')" >Register</button>
-			<button class="tablink" onclick="openPage('Contact', this, 'blue')">Login</button>
-			<button class="tablink" onclick="openPage('About', this, 'orange')">About</button>
+			<button class="tablink" onclick="openPage('Welcome', this)" id="defaultOpen">Welcome</button>
+			<button class="tablink" onclick="openPage('Register', this)" >Register</button>
+			<button class="tablink" onclick="openPage('Login', this)">Login</button>
+			<button class="tablink" onclick="openPage('About', this)">About</button>
 			
-			<div id="Home" class="tabcontent">
+			<div id="Welcome" class="tabcontent">
 			  <h3>Welcome</h3>
 			  <p>Home is where the heart is..</p>
 			</div>
 			
 			<div id="Register" class="tabcontent">
-			  <h3>Register</h3>
-			  <p>Some news this fine day!</p>
+				<form class="cmxform" id="commentForm" method="get" action="form-handler.html" autocomplete="off">
+					<fieldset>
+						<legend>Register</legend>
+						<p> <!-- username -->
+							<label for="cname">Username: <span> </span></label>
+							<input id="username" name="name" minlength="2" type="text" pattern="[a-zA-Z]*" required />
+						</p>
+						<p> <!-- password -->
+							<label for="pwd">Password: <span> </span></label>
+							<input type="password" ip="password" name="password" minlength="6" type="text" pattern="/^(?=.*[a-z])[A-Za-z0-9\d=!\-@._*]+$/" required/>
+						</p>
+						<p> <!-- fullname -->
+							<label for="text">Fullname: <span> </span></label>
+							<input ip="fullname" name="fullname" minlength="2" type="text" required/>
+						</p>
+						<p> <!-- email -->
+							<label for="cemail">Email: <span> </span></label>
+							<input ip="email" type="email" name="email" required/>
+						</p>
+						<p>
+							<label for="birthday:">Birthday date:</label>
+							<input type="date" name="bday">
+						</p>
+						<p>
+							<input class="submit" type="submit" value="Submit"/>
+						</p>
+					</fieldset>
+				</form>
+				<script>
+				$("commentForm").validate();
+				</script>
 			</div>
 			
 			<div id="Login" class="tabcontent">
