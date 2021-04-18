@@ -14,6 +14,47 @@ let dict = {
   };
 
 
+
+  
+$().ready(function(){
+	$("signupForm").validate({
+		rules: {
+			username: {
+				required: true,
+				messages: {
+					required: "Required input",
+				}
+			},
+			password: {
+				required: true,
+				minlength: 6,	
+				messages: {
+					required: "Required input",
+					minlength: jQuery.validator.format("Please, at least {0} characters are necessary"),
+				}
+			},
+			fullname:{
+				required: true,
+				digits: false,
+				minlength: 2,
+				messages: {
+					required: "Required input",
+					minlength: jQuery.validator.format("Please, at least {0} characters are necessary"),
+					digits: "This field can't contain numbers"
+				}
+			},
+			email: {
+				required: true,
+				Email: true,
+				messages: {
+					required: "Required input"
+				}
+			}
+		}
+	})
+});
+
+
 $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();

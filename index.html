@@ -5,7 +5,7 @@
 		<script type="text/javascript" src="./app.js"></script>
 		<link rel="stylesheet" href="styles.css">
 		<script src="html://code.jqurey.com/jquery-2.1.1.min.js"></script>
-		<script src="js/jquery.validate.js"></script>
+		<script src="js/jqurey.validate.js"></script>
 		<script src="js/signup-form.js"></script>
 		<table>
 			<tr>
@@ -30,40 +30,39 @@
 					<br>
 					<br>
 					<center> <h3>Welcome</h3>
-					<!-- <p>Home is where the heart is..</p> -->
 					<br>
 					<br>
 					<br>
 					<br>
 					<br>
 					<br>
-					<button class="tablink" onclick="openPage('Register', this, 'green')"> Register </button>
+					<button class="tablink" onclick="openPage('Register', this)"> Register </button>
 					<br>
 					<br>
 					<br>
-					<button class="tablink" onclick="openPage('Login', this, 'blue')">Login</button> 
+					<button class="tablink" onclick="openPage('Login', this)">Login</button> 
 					</center> 
 			</div>
 			
 			<div id="Register" class="tabcontent">
-				<form class="cmxform" id="commentForm" method="get" action="form-handler.html" autocomplete="off">
+				<form class="cmxform" id="signupForm" method="get" action="" autocomplete="off">
 					<fieldset>
 						<legend>Register</legend>
 						<p> <!-- username -->
-							<label for="cname">Username: <span> </span></label>
-							<input id="username" name="name" minlength="2" type="text" pattern="[a-zA-Z]*" required />
+							<label for="username">Username:</label>
+							<input id="username" name="name" minlength="2" type="text" />
 						</p>
 						<p> <!-- password -->
-							<label for="pwd">Password: <span> </span></label>
-							<input type="password" ip="password" name="password" minlength="6" type="text" pattern="/^(?=.*[a-z])[A-Za-z0-9\d=!\-@._*]+$/" required/>
+							<label for="password">Password:</label>
+							<input type="password" ip="password" name="password" type="text"/>
 						</p>
 						<p> <!-- fullname -->
-							<label for="text">Fullname: <span> </span></label>
-							<input ip="fullname" name="fullname" minlength="2" type="text" required/>
+							<label for="fullname">Fullname:</label>
+							<input ip="fullname" name="fullname" minlength="2" type="text"/>
 						</p>
 						<p> <!-- email -->
-							<label for="cemail">Email: <span> </span></label>
-							<input ip="email" type="email" name="email" required/>
+							<label for="email">Email:</label>
+							<input ip="email" type="email" name="email"/>
 						</p>
 						<p>
 							<label for="birthday:">Birthday date:</label>
@@ -74,9 +73,6 @@
 						</p>
 					</fieldset>
 				</form>
-				<script>
-				$("commentForm").validate();
-				</script>
 			</div>
 			
 			<div id="Login" class="tabcontent">
