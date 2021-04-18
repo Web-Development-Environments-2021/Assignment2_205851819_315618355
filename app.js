@@ -7,6 +7,13 @@ var start_time;
 var time_elapsed;
 var interval;
 
+
+let dict = {
+	Username: "k",
+	Password: "k",
+  };
+
+
 $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
@@ -171,7 +178,7 @@ function UpdatePosition() {
 	}
 }
 
-function openPage(pageName, elmnt, color) {
+function openPage(pageName, elmnt) {
 	// Hide all elements with class="tabcontent" by default */
 	var i, tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
@@ -189,7 +196,7 @@ function openPage(pageName, elmnt, color) {
 	document.getElementById(pageName).style.display = "block";
   
 	// Add the specific color to the button used to open the tab content
-	elmnt.style.backgroundColor = color;
+	// elmnt.style.backgroundColor = color;
   }
   
   // Get the element with id="defaultOpen" and click on it
