@@ -3,9 +3,47 @@
 	<head>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
+		<table>
+			<tr>
+				<td>
+					<img src= >
+				</td>
+				<td>
+					<p> PACMAN </p>
+				</td>
+			</tr>
+		</table>
 	</head>
 
 	<body>
+			<button class="tablink" onclick="openPage('Home', this, 'red')"id="defaultOpen">Welcome</button>
+			<button class="tablink" onclick="openPage('News', this, 'green')" >Register</button>
+			<button class="tablink" onclick="openPage('Contact', this, 'blue')">Login</button>
+			<button class="tablink" onclick="openPage('About', this, 'orange')">About</button>
+			
+			<div id="Home" class="tabcontent">
+			  <h3>Welcome</h3>
+			  <p>Home is where the heart is..</p>
+			</div>
+			
+			<div id="Register" class="tabcontent">
+			  <h3>Register</h3>
+			  <p>Some news this fine day!</p>
+			</div>
+			
+			<div id="Login" class="tabcontent">
+			  <h3>Login</h3>
+			  <p>Get in touch, or swing by for a cup of coffee.</p>
+			</div>
+			
+			<div id="About" class="tabcontent">
+			  <h3>About</h3>
+			  <p>Who we are and what we do.</p>
+			</div>
+	
+
+
+		<!-- 
 		<div id="score">
 			<label for="lblScore">SCORE:</label>
 			<input id="lblScore" type="text" />
@@ -16,6 +54,6 @@
 		</div>
 		<div id="game">
 			<canvas id="canvas" height="600" width="600"></canvas>
-		</div>
+		</div>-->
 	</body>
 </html>
