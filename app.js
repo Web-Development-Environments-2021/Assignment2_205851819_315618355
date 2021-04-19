@@ -8,14 +8,8 @@ var time_elapsed;
 var interval;
 
 
-let dict = {
-	Username: "k",
-	Password: "k",
-  };
-
-
-
   
+
 $().ready(function(){
 	$("signupForm").validate({
 		rules: {
@@ -37,11 +31,6 @@ $().ready(function(){
 				required: true,
 				digits: false,
 				minlength: 2,
-				messages: {
-					required: "Required input",
-					minlength: jQuery.validator.format("Please, at least {0} characters are necessary"),
-					digits: "This field can't contain numbers"
-				}
 			},
 			email: {
 				required: true,
@@ -235,10 +224,7 @@ function openPage(pageName, elmnt) {
   
 	// Show the specific tab content
 	document.getElementById(pageName).style.display = "block";
-  
-	// Add the specific color to the button used to open the tab content
-	// elmnt.style.backgroundColor = color;
-  }
-  
+}
+
   // Get the element with id="defaultOpen" and click on it
-  document.getElementById("defaultOpen").click();
+document.getElementById("defaultOpen").click();

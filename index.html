@@ -36,7 +36,7 @@
 					<br>
 					<br>
 					<br>
-					<button class="tablink" onclick="openPage('Register', this)"> Register </button>
+					<button class="tablink" onclick="openPage('Register', this)">Register</button>
 					<br>
 					<br>
 					<br>
@@ -76,8 +76,13 @@
 			</div>
 			
 			<div id="Login" class="tabcontent">
-			  <h3>Login</h3>
-			  <p>Get in touch, or swing by for a cup of coffee.</p>
+				<h3>Login</h3>
+				<form class="login-form">
+					<p><input type="text" placeholder="Username:"/></p>
+					<p><input type="password" placeholder="Password:"/></p>
+					<button onclick="Login(this)">Login</button>
+					<p class="message">Not registered? <a href="#Register">Register</a></p>
+			  </form>
 			</div>
 			
 			<div id="About" class="tabcontent">
