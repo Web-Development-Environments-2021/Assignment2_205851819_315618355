@@ -3,106 +3,117 @@
 	<head>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
-		<link rel="stylesheet" href="styles.css">
-		<script src="html://code.jqurey.com/jquery-2.1.1.min.js"></script>
-		<script src="js/jqurey.validate.js"></script>
-		<script src="js/signup-form.js"></script>
-		<table>
+		<link rel="stylesheet" href="styles.css" />
+		
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+		<table style="width:100%">
 			<tr>
 				<td>
-					<img src= >
+					Logo
 				</td>
 				<td>
 					<p> PACMAN </p>
+				</td>
+				<td>
+					<td>
+						<p>Amit</p>
+						<p>Yeal</p>
+					</td>
 				</td>
 			</tr>
 		</table>
 	</head>
 
 	<body>
-			<button class="tablink" onclick="openPage('Welcome', this)" id="defaultOpen">Welcome</button>
-			<button class="tablink" onclick="openPage('Register', this)" >Register</button>
-			<button class="tablink" onclick="openPage('Login', this)">Login</button>
-			<button class="tablink" onclick="openPage('About', this)">About</button>
+			<button class="tablink" onclick="openPage('Welcome')" id="defaultOpen">Welcome</button>
+			<button class="tablink" onclick="openPage('Register')" >Register</button>
+			<button class="tablink" onclick="openPage('Login')">Login</button>
+			<button class="tablink" onclick="openPage('About')">About</button>
 			
 			<div id="Welcome" class="tabcontent">
 					<br>
 					<br>
 					<br>
-					<center> <h3>Welcome</h3>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<button class="tablink" onclick="openPage('Register', this)">Register</button>
-					<br>
-					<br>
-					<br>
-					<button class="tablink" onclick="openPage('Login', this)">Login</button> 
+					<center>
+						<h3>Welcome</h3>
+						<br>
+						<button onclick="openPage('Register')">Register</button>
+						<br>
+						<br>
+						<button onclick="openPage('Login')">Login</button> 
 					</center> 
 			</div>
 			
-			<div id="Register" class="tabcontent">
-				<form class="cmxform" id="signupForm" method="get" action="" autocomplete="off">
-					<fieldset>
-						<legend>Register</legend>
-						<p> <!-- username -->
+			<center>
+				<div id="Register" class="tabcontent">
+					<form class="cmxform" id="signupForm" autocomplete="off">
+						<br>
+						<br>
+						<h3>Register</h3>
+							<!-- username -->
 							<label for="username">Username:</label>
-							<input id="username" name="name" minlength="2" type="text" />
-						</p>
-						<p> <!-- password -->
+							<input id="username"name="username" placeholder="username" type="text" />
+						<br>
+						<br> <!-- password -->
 							<label for="password">Password:</label>
-							<input type="password" ip="password" name="password" type="text"/>
-						</p>
-						<p> <!-- fullname -->
+							<input type="password" id="password" name="password" placeholder="password" type="text"/>
+						<br>
+						<br> <!-- fullname -->
 							<label for="fullname">Fullname:</label>
-							<input ip="fullname" name="fullname" minlength="2" type="text"/>
+							<input ip="fullname" name="fullname" placeholder="fullname" minlength="2" type="text"/>
 						</p>
 						<p> <!-- email -->
 							<label for="email">Email:</label>
-							<input ip="email" type="email" name="email"/>
-						</p>
-						<p>
+							<input id="email" name="email" placeholder="email"/>
+						<br>
+						<br>
 							<label for="birthday:">Birthday date:</label>
 							<input type="date" name="bday">
-						</p>
-						<p>
-							<input class="submit" type="submit" value="Submit"/>
-						</p>
-					</fieldset>
-				</form>
-			</div>
+						<br>
+						<br>
+							<button class="submit" type="submit" >Submit</button>
+							<p class="message">Already registered? <a href="#" onclick="openPage('Login')">Login</a></p>
+						<br>
+						<br>
+					</form>
+				</div>
+			</center>
 			
-			<div id="Login" class="tabcontent">
-				<h3>Login</h3>
-				<form class="login-form">
-					<p><input type="text" placeholder="Username:"/></p>
-					<p><input type="password" placeholder="Password:"/></p>
-					<button onclick="Login(this)">Login</button>
-					<p class="message">Not registered? <a href="#Register">Register</a></p>
-			  </form>
-			</div>
+			<center>
+				<div id="Login" class="tabcontent">
+					<br>
+					<br>
+					<h3>Login</h3>
+					<form class="login-form" id="loginForm" autocomplete="off">
+						<p><input id =Username type="text" placeholder="username"/></p>
+						<p><input id=Password type="password" placeholder="password"/></p>
+						<button onclick="Login(event)">Login</button>
+						<p class="message">Not registered? <a href="#" onclick="openPage('Register')">Register</a></p>
+					</form>
+				</div>
+			</center>
 			
 			<div id="About" class="tabcontent">
 			  <h3>About</h3>
 			  <p>Who we are and what we do.</p>
 			</div>
 	
-
-
-		<!-- 
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
-		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
-		</div>-->
+			<div id="Game" class="tabcontent">
+				<center>
+					<h3>Pacman Game</h3>
+					<div id="score">
+						<label for="lblScore">SCORE:</label>
+						<input id="lblScore" type="text" />
+					</div>
+					<div id="time">
+						<label for="lblTime">TIME:</label>
+						<input id="lblTime" type="text" />
+					</div>
+					<div id="game">
+						<canvas id="canvas" height="600" width="600"></canvas>
+					</div>
+				</center>
+			</div>
 	</body>
 </html>

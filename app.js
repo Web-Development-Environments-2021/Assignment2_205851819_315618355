@@ -6,48 +6,97 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var signin = false;
 
+//global dictionary
+var dict = {
+	"k" : "k"
+}
 
-  
+$(document).ready(function(){
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
 
-$().ready(function(){
-	$("signupForm").validate({
+	$("#signupForm").validate({
 		rules: {
 			username: {
-				required: true,
-				messages: {
-					required: "Required input",
-				}
+				required: true
 			},
 			password: {
 				required: true,
 				minlength: 6,	
-				messages: {
-					required: "Required input",
-					minlength: jQuery.validator.format("Please, at least {0} characters are necessary"),
-				}
+				validatePassword: true
 			},
-			fullname:{
+			fullname: {
 				required: true,
-				digits: false,
-				minlength: 2,
+				lettersonly: true,
+				minlength: 2
 			},
 			email: {
 				required: true,
-				Email: true,
-				messages: {
-					required: "Required input"
-				}
+				email: true
 			}
+		},
+		messages: {
+			username: {
+				required: "Required input."
+			},
+			password: {
+				required: "Required input.",
+				minlength: "Password must be at least 6 characters.",
+				validatePassword: "Password must contains letters and numbers."
+			},
+			fullname: {
+				required: "Required input.",
+				lettersonly: "Fullname include only letters.",
+				minlength: "This filed must be at least 2 characters."
+			},
+			email: {
+				required: "Required input.",
+				email: "Please enter a valid email address."
+			}
+		},
+		submitHandler: function(form, event){
+			event.preventDefault();
+			let name = document.getElementById("username").value;
+			let password = document.getElementById("password").value;
+			dict[name] = password;
+			let fm = document.getElementById("signupForm");
+			fm.reset();
+			openPage("Welcome");	
 		}
+	});
+});
+
+//validation of password
+$(function(){
+	$.validator.addMethod('validatePassword', function(value, element){
+		return this.optional(element) || /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/.test(value);
 	})
 });
 
+//login function
+function Login(event){
+	event.preventDefault();
+	let name = document.getElementById("Username").value;
+	let password = document.getElementById("Password").value;
+	if(dict[name] == password){
+		openPage("Game");
+		document.getElementById("loginForm").reset();
+		signin = true;
+		context = canvas.getContext("2d");
+		Start();
+	}
+	else 
+		alert("Your username or password isn't correct");	
+}
 
+
+/*
 $(document).ready(function() {
 	context = canvas.getContext("2d");
 	Start();
-});
+});*/
 
 function Start() {
 	board = new Array();
@@ -208,7 +257,7 @@ function UpdatePosition() {
 	}
 }
 
-function openPage(pageName, elmnt) {
+function openPage(pageName) {
 	// Hide all elements with class="tabcontent" by default */
 	var i, tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
@@ -224,7 +273,9 @@ function openPage(pageName, elmnt) {
   
 	// Show the specific tab content
 	document.getElementById(pageName).style.display = "block";
-}
+  
+	// Add the specific color to the button used to open the tab content
+	// elmnt.style.backgroundColor = color;
+  }
+  
 
-  // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();

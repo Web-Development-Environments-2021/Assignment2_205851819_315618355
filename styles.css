@@ -1,9 +1,43 @@
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: black;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+
 /* Style the tab */
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
   }
+  
   
   /* Style the buttons that are used to open the tab content */
   .tab button {
@@ -46,3 +80,15 @@
     font-family: sans-serif;
     size: 20px;
   }
+
+.form .message{
+  margin: 15px 0 0;
+  color:aliceblue;
+  font-size: 12px;
+}
+
+.form .message a{
+  color: #4CAF50;
+  text-decoration: none;
+}
+
