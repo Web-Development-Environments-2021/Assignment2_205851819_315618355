@@ -3,10 +3,25 @@ var shape = new Object();
 var board;
 var score;
 var pac_color;
-var start_time;
+//var start_time;
 var time_elapsed;
 var interval;
 var signin = false;
+
+//Dictionary of configurations
+var config = {
+	//keys
+	'up' : 38,
+	'down' : 40,
+	'right' : 39,
+	'left' : 37,
+	'balls' : 50,
+	'5_balls' : '#e66465',
+	'15_balls' : '#f6b73c',
+	'25_balls' : '#66ff66',
+	'game_time' : 60,
+	'monster_num' : 1
+};
 
 //global dictionary
 var dict = {
@@ -68,6 +83,79 @@ $(document).ready(function(){
 		}
 	});
 
+	$("#configurationForm").validate({
+		rules: {
+			upbutton: {
+				required: true
+			},
+			downbutton: {
+				required: true
+			},
+			rightbutton: {
+				required: true
+			},
+			leftbutton: {
+				required: true
+			},
+			numballs: {
+				required: true,
+				min: 50,
+				max : 90
+			},
+			gametime: {
+				required: true,
+				min: 60
+			},
+		},
+		messages: {
+			upbutton: {
+				required: "This field is required."
+			},
+			downbutton: {
+				required: "This field is required."
+			},
+			rightbutton: {
+				required: "This field is required."
+			},
+			leftbutton: {
+				required: "This field is required."
+			},
+			numballs: {
+				required: "This field is required..",
+				min: "Please enter a value greater than or equal to 50.",
+				max: "Please enter a value less than or equal to 90."
+			},
+			gametime: {
+				required: "This field is required.",
+				min: "Please enter a value greater than or equal to 60.",
+			},
+		},
+		submitHandler: function(form, event){
+			event.preventDefault();
+			window.alert(document.getElementById('5_balls').value);
+			//update configuration
+			//keys
+			config['up'] = parseInt(document.getElementById('upbutton').value);
+			config['down'] = parseInt(document.getElementById('downbutton').value);
+			config['right'] = parseInt(document.getElementById('rightbutton').value);
+			config['left'] = parseInt(document.getElementById('leftbutton').value);
+			//balls
+			config['balls'] = parseInt(document.getElementById('balls').value);
+			//colors
+			config['5_balls'] = document.getElementById('5_balls').value;
+			config['15_balls'] = document.getElementById('15_balls').value;
+			config['25_balls'] = document.getElementById('25_balls').value;
+			//game time
+			config['game_time'] = parseInt(document.getElementById('gametime').value);
+			//monsters
+			config['monster_num'] = parseInt(document.getElementById('points').value)
+			//
+			let fm = document.getElementById("configurationForm");
+			fm.reset();
+			startGame();	
+		}
+	});
+
 	//create the modalDialog
 	var aboutButton = document.getElementById('AboutBtn');
 	var modalDialog = document.getElementById('ModalDialog');
@@ -97,12 +185,11 @@ $(document).ready(function(){
 	});
 	
 	window.top.onclick = function(event) {
-		if(event.target == aboutDiv) {
+		if(event.target == aboutDiv && modalDialog.style.visibility.value == 'visible') {
 			modalDialog.style.visibility = 'hidden';
 		}
 	}
 });
-
 
 //validation of password
 $(function(){
@@ -111,17 +198,16 @@ $(function(){
 	})
 });
 
+
 //login function
 function Login(event){
 	event.preventDefault();
 	let name = document.getElementById("Username").value;
 	let password = document.getElementById("Password").value;
 	if(dict[name] == password){
-		openPage("Setting");
+		openPage("Configuration");
 		document.getElementById("loginForm").reset();
 		signin = true;
-		context = canvas.getContext("2d");
-		Start();
 	}
 	else if(name == "" || password == ""){
 		alert("Type your details if you have an account");
@@ -130,14 +216,34 @@ function Login(event){
 		alert("Your username or password isn't correct");	
 }
 
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+	  color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
+  }
+
+function Random(){
+	//balls
+	document.getElementById('balls').value = Math.floor(Math.random() * 40) + 50;
+	//colors
+	document.getElementById('5_balls').value = getRandomColor();
+	document.getElementById('15_balls').value = getRandomColor();
+	document.getElementById('25_balls').value = getRandomColor();
+	//game time
+	document.getElementById('gametime').value = parseInt(Math.random(1)*60) + 60;
+	//
+	document.getElementById('points').value = Math.floor(Math.random() * 4) + 1
+}
 
 
-
-/*
-$(document).ready(function() {
+function startGame(){
+	openPage('Game')
 	context = canvas.getContext("2d");
 	Start();
-});*/
+}
 
 function Start() {
 	board = new Array();
@@ -210,16 +316,16 @@ function findRandomEmptyCell(board) {
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[config['up']]) { //up
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[config['down']]) { //down
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[config['left']]) { //left
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[config['right']]) { //right
 		return 4;
 	}
 }
@@ -290,7 +396,11 @@ function UpdatePosition() {
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if (score == 50) {
+	else if(time_elapsed >= config['game_time']){
+		window.clearInterval(interval);
+		window.alert("Game completed");
+	}
+	else if (score == 50) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
 	} else {

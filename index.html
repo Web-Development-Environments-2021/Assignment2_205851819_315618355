@@ -93,6 +93,89 @@
 					</form>
 				</div>
 			</center>
+
+			<div id="Configuration" class="tabcontent">
+				<center>
+					<form class="conform" name="configurationForm" id="configurationForm" autocomplete="off">
+						<br>
+						<br>
+						<h3>Configuration</h3>
+						<!-- Game key -->
+						<br>
+
+						<!--up button-->
+						<label for="upbutton">Up Button:</label>
+						<input id="upbutton" name="upbutton" type="text" value="38" />
+						<br>
+						<br>
+
+						<!--down button-->
+						<label for="downbutton">Down Button:</label>
+						<input id="downbutton" name="downbutton" type="text"  value="40"/>
+						<br>
+						<br>
+
+						<!--right button-->
+						<label for="rightbutton">Right Button:</label>
+						<input id="rightbutton"name="rightbutton" type="text" value="39" />
+						<br>
+						<br>
+
+						<!--left button-->
+						<label for="leftbutton">Left Button:</label> 
+						<input id="leftbutton" name="leftbutton" type="text"  value="37"/>
+						<br>
+						<br>
+
+						<!-- Selecting number of balls -->
+						<label for="balls">Number of balls (between 50 and 90):</label>
+						<br>
+						<br>
+						<input type="text" id="balls" name="balls" placeholder="balls number"  min="50" max="90" required >
+						<br>
+						<br>
+
+						<!-- Selecting colors of balls -->
+						<label for="points">Select color of balls:</label>
+						<br>
+						<br>
+						<!--5-point ball color-->
+						<input type="color" id="5_balls" name="5_balls" value="#e66465">
+						<label for="5_balls">5 points ball</label>
+
+						<!--15-point ball color-->
+						<input type="color" id="15_balls" name="15_balls" value="#f6b73c">
+						<label for="15_balls">15 points ball</label>
+
+						<!--25-point ball color-->
+						<input type="color" id="25_balls" name="25_balls" value="#66ff66">
+						<label for="25_balls">25 points ball</label>
+
+						<br>
+						<br>
+
+						<!--game time-->
+						<label for="balls">Game time (minimun 60 seconds):</label>
+						<br>
+						<br>
+						<input id="gametime" name="gametime" placeholder="game time" type="text" min="60" required/>
+						<br>
+						<br>
+						
+						<!--number monsters-->
+						<label for="points">Number of mansters (between 1 and 4):</label>
+						<br>
+						<br>
+						<input type="range" id="points" name="points" min="1" max="4" value="2">
+						<br>
+						<br>
+						<button id="start" class="start" type="submit" >start game</button>   <!--change to start game-->
+						<br>
+						<br>
+					</form>
+					<button id="randomBtn" type="text" onclick="Random()">random</button>
+				</center>
+			</div>
 			
 			<div id="About" class="tabcontent">
 				<dialog id="ModalDialog" class="dialog">
@@ -107,20 +190,31 @@
 			</div>
 	
 			<div id="Game" class="tabcontent">
-				<center>
-					<h3>Pacman Game</h3>
-					<div id="score">
-						<label for="lblScore">SCORE:</label>
-						<input id="lblScore" type="text" />
-					</div>
-					<div id="time">
-						<label for="lblTime">TIME:</label>
-						<input id="lblTime" type="text" />
-					</div>
-					<div id="game">
-						<canvas id="canvas" height="600" width="600"></canvas>
-					</div>
-				</center>
+				<table style="width:100%">
+						<tr>
+							<td>
+								<h3>Pacman Game</h3>
+								<div id="score">
+									<label for="lblScore">SCORE:</label>
+									<input id="lblScore" type="text" />
+								</div>
+								<div id="time">
+									<label for="lblTime">TIME:</label>
+									<input id="lblTime" type="text" />
+								</div>
+								<div id="game">
+									<canvas id="canvas" height="600" width="600"></canvas>
+								</div>
+							</td>
+							<td>
+								<p>Configuration</p> 
+							</td>
+						</tr>
+				</table>
+
+
+
+				
 			</div>
 	</body>
 </html>
