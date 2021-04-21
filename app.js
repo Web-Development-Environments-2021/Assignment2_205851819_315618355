@@ -132,7 +132,6 @@ $(document).ready(function(){
 		},
 		submitHandler: function(form, event){
 			event.preventDefault();
-			window.alert(document.getElementById('5_balls').value);
 			//update configuration
 			//keys
 			config['up'] = parseInt(document.getElementById('upbutton').value);
@@ -238,9 +237,27 @@ function Random(){
 	document.getElementById('points').value = Math.floor(Math.random() * 4) + 1
 }
 
+function configurationShow(){
+	//keys
+	document.getElementById('valUp').value = config['up'];
+	document.getElementById('valDown').value = config['down'];
+	document.getElementById('valRight').value = config['right'];
+	document.getElementById('valLeft').value = config['left'];
+	//nubmers of balls
+	document.getElementById('valBalls').value = config['balls'];
+	//colors of balls
+	document.getElementById('val5_balls').backgroundColor = config['5_balls'];
+	document.getElementById('val15_balls').backgroundColor = config['15_balls'];
+	document.getElementById('val25_balls').backgroundColor = config['25_balls'];
+	//game time
+	document.getElementById('valTime').value = config['game_time'];
+	//number of monsters
+	document.getElementById('valMonsters').value = config['monster_num'];
+}
 
 function startGame(){
 	openPage('Game')
+	configurationShow();
 	context = canvas.getContext("2d");
 	Start();
 }
