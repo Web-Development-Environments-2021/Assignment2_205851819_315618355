@@ -1,3 +1,16 @@
+/* x Button dialog */
+/*ViewEncapsulation.NONE*/
+
+dialog {
+  margin-top: 60px;
+}
+
+dialog[id="ModalDialog"] {
+  border:2px solid blue;
+  font-weight:bold;
+}
+
+
 /* Set height of body and the document to 100% to enable "full page tabs" */
 body, html {
   height: 100%;

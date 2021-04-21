@@ -14,9 +14,10 @@ var dict = {
 }
 
 $(document).ready(function(){
-	// Get the element with id="defaultOpen" and click on it
-	document.getElementById("defaultOpen").click();
+	// Get the element with id="welconBtn" and click on it
+	document.getElementById("welconBtn").click();
 
+	// signup validation
 	$("#signupForm").validate({
 		rules: {
 			username: {
@@ -71,34 +72,37 @@ $(document).ready(function(){
 	var aboutButton = document.getElementById('AboutBtn');
 	var modalDialog = document.getElementById('ModalDialog');
 	var xButton = document.getElementById("xBtn");
+	var aboutDiv = document.getElementById("About");
 
 	aboutButton.addEventListener('click', function onOpen() {
 		openPage('About');
 		if (typeof modalDialog.showModal == "function") {
-			modalDialog.showModal();
-			showDialog = true;
+			modalDialog.show();
+			modalDialog.style.visibility = 'visible';
 		} else {
 		alert("The <dialog> API is not supported by this browser");
 		}
 	});
 
 	// closing the modalDialog
-	modalDialog.addEventListener('close', function onClose(event) {
+	aboutDiv.addEventListener('close', function onClose(event) {
 		if(event.keyCode == 27){
-			modalDialog.close()
+			modalDialog.style.visibility = 'hidden';
 		}
 		
 	});
 	xButton.addEventListener('click', function onClose(event) {
 		showDialog = false;
-		modalDialog.close()
+		modalDialog.style.visibility = 'hidden';
 	});
-	modalDialog.addEventListener('click', function (event) {
-		document.alert(event.target.closest('.dialog'))
-		if(!event.target.closest('.dialog'))
-			modalDialog.close()
-	})
+	
+	window.top.onclick = function(event) {
+		if(event.target == aboutDiv) {
+			modalDialog.style.visibility = 'hidden';
+		}
+	}
 });
+
 
 //validation of password
 $(function(){
@@ -113,15 +117,20 @@ function Login(event){
 	let name = document.getElementById("Username").value;
 	let password = document.getElementById("Password").value;
 	if(dict[name] == password){
-		openPage("Game");
+		openPage("Setting");
 		document.getElementById("loginForm").reset();
 		signin = true;
 		context = canvas.getContext("2d");
 		Start();
 	}
+	else if(name == "" || password == ""){
+		alert("Type your details if you have an account");
+	} 
 	else 
 		alert("Your username or password isn't correct");	
 }
+
+
 
 
 /*

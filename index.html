@@ -4,7 +4,6 @@
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 		<link rel="stylesheet" href="styles.css" />
-		
 		<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
 		<table style="width:100%">
@@ -26,16 +25,17 @@
 	</head>
 
 	<body>
-			<button class="tablink" onclick="openPage('Welcome')" id="defaultOpen">Welcome</button>
-			<button class="tablink" onclick="openPage('Register')" >Register</button>
-			<button class="tablink" onclick="openPage('Login')">Login</button>
-			<button class="tablink" onclick="openPage('About')">About</button>
+			<button id= "welconBtn" class="tablink" onclick="openPage('Welcome')">Welcome</button>
+			<button id="registerBtn" class="tablink" onclick="openPage('Register')" >Register</button>
+			<button id="loginBtn" class="tablink" onclick="openPage('Login')">Login</button>
+			<button id="AboutBtn" class="tablink" onclick="openPage('About')">About</button>
 			
 			<div id="Welcome" class="tabcontent">
 					<br>
 					<br>
 					<br>
 					<center>
+
 						<h3>Welcome</h3>
 						<br>
 						<button onclick="openPage('Register')">Register</button>
@@ -95,8 +95,15 @@
 			</center>
 			
 			<div id="About" class="tabcontent">
-			  <h3>About</h3>
-			  <p>Who we are and what we do.</p>
+				<dialog id="ModalDialog" class="dialog">
+					<button id=xBtn class="close" style="margin-left: 650px">X</button>
+					<form method="dialog">
+					  <p>Amit Nadam, Yeal Kotiar</p>
+					  <p>jQuery Plugin:</p>
+					  <p><a href="#">https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js</a></p>
+					  <p><a href="#">https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js</a></p>
+					</form>
+				  </dialog>
 			</div>
 	
 			<div id="Game" class="tabcontent">
