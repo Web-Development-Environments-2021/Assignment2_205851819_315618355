@@ -66,6 +66,38 @@ $(document).ready(function(){
 			openPage("Welcome");	
 		}
 	});
+
+	//create the modalDialog
+	var aboutButton = document.getElementById('AboutBtn');
+	var modalDialog = document.getElementById('ModalDialog');
+	var xButton = document.getElementById("xBtn");
+
+	aboutButton.addEventListener('click', function onOpen() {
+		openPage('About');
+		if (typeof modalDialog.showModal == "function") {
+			modalDialog.showModal();
+			showDialog = true;
+		} else {
+		alert("The <dialog> API is not supported by this browser");
+		}
+	});
+
+	// closing the modalDialog
+	modalDialog.addEventListener('close', function onClose(event) {
+		if(event.keyCode == 27){
+			modalDialog.close()
+		}
+		
+	});
+	xButton.addEventListener('click', function onClose(event) {
+		showDialog = false;
+		modalDialog.close()
+	});
+	modalDialog.addEventListener('click', function (event) {
+		document.alert(event.target.closest('.dialog'))
+		if(!event.target.closest('.dialog'))
+			modalDialog.close()
+	})
 });
 
 //validation of password
