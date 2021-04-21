@@ -68,28 +68,66 @@ $(document).ready(function(){
 	});
 });
 
-//validation of password
-$(function(){
-	$.validator.addMethod('validatePassword', function(value, element){
-		return this.optional(element) || /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/.test(value);
-	})
-});
-
 //login function
 function Login(event){
 	event.preventDefault();
 	let name = document.getElementById("Username").value;
 	let password = document.getElementById("Password").value;
 	if(dict[name] == password){
-		openPage("Game");
-		document.getElementById("loginForm").reset();
-		signin = true;
-		context = canvas.getContext("2d");
-		Start();
+		openPage("Configuration");
+		// document.getElementById("loginForm").reset();
+		// signin = true;
+		// // context = canvas.getContext("2d");
+		// // Start();
+
+	
+
 	}
 	else 
 		alert("Your username or password isn't correct");	
 }
+
+$(document).ready(function(){
+	// Get the element with id="defaultOpen" and click on it
+	openPage("Game");
+
+	$("#configurationForm").validate({
+		rules: {
+			upbutton: {
+				required: true
+			},
+			rightbutton: {
+				required: true
+			},
+			downbutton: {
+				required: true
+			},
+			leftbutton: {
+				required: true
+			},
+			numballs: {
+				required: true
+			},
+			point5ballcolor:{
+				required: true
+			},
+			point15ballcolor:{
+				required: true
+			},
+			point25ballcolor:{
+				required: true
+			},
+			gametime: {
+				required: true	
+			},
+			numbermonsters: {
+				required: true,
+				
+			}
+		}
+	});
+});
+
 
 
 /*

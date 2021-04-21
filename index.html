@@ -93,6 +93,71 @@
 					</form>
 				</div>
 			</center>
+
+			<div id="Configuration" class="tabcontent">
+				<form class="conform" id="configurationForm" autocomplete="off">
+					<br>
+					<br>
+					<center><h3>Configuration</h3>
+						<br>	
+							<!--up button-->
+							<label for="upbutton">upbutton:</label>
+							<input id="upbutton"name="upbutton" placeholder="upbutton" type="text" />
+						<br>
+						<br>
+							<!--right button-->
+							<label for="rightbutton">rightbutton:</label>
+							<input id="rightbutton"name="rightbutton" placeholder="rightbutton" type="text" />
+						<br>
+						<br>
+							<!--down button-->
+							<label for="downbutton">downbutton:</label>
+							<input id="downbutton"name="downbutton" placeholder="downbutton" type="text" />
+						<br>
+						<br>
+							<!--left button-->
+							<label for="leftbutton">leftbutton:</label> 
+							<input id="leftbutton" name="leftbutton" placeholder="leftbutton" type="text" />
+						<br>
+						<br>
+							<!--number of balls-->
+							<label for="numballs">number of balls:</label> 
+							<input id="numballs" name="numballs" placeholder="numballs" type="text" min="50" max="90" />
+						<br>
+						<br>
+							<!--5-point ball color-->
+							<label for="point5ballcolor">5-point ball color:</label> 
+							<input id="point5ballcolor" name="point5ballcolor" placeholder="point5ballcolor" type="text" />
+						<br>
+						<br>
+							<!--15-point ball color-->
+							<label for="point15ballcolor">15-point ball color:</label> 
+							<input id="point15ballcolor" name="point15ballcolor" placeholder="point15ballcolor" type="text" />
+						<br>
+						<br>
+							<!--25-point ball color-->
+							<label for="point25ballcolor">25-point ball color:</label> 
+							<input id="point25ballcolor" name="point25ballcolor" placeholder="point25ballcolor" type="text" />
+						<br>
+						<br>
+							<!--game time-->
+							<label for="gametime">game time:</label> 
+							<input id="gametime" name="gametime" placeholder="gametime" type="text" min="60"/>
+						<br>
+						<br>
+							<!--number monsters-->
+							<label for="numbermonsters">number monsters:</label> 
+							<input id="numbermonsters" name="numbermonsters" placeholder="numbermonsters" type="text" min="1" max="4"/>
+						<br>
+						<br>
+							<button onclick="Random(event)">random</button>
+						<br>
+						<br>
+							<button onclick="openPage('Game')">start game</button>   <!--change to start game-->
+					</center>
+					<br>
+
+			</div>
 			
 			<div id="About" class="tabcontent">
 			  <h3>About</h3>
