@@ -7,11 +7,13 @@ var pac_color;
 var time_elapsed;
 var interval;
 var signin = false;
-var numinvalidation = 5;
+var numinvalidation;
 var str;
-var ball5 = 0;
-var ball15 = 0;
-var ball25 = 0;
+var ball5;
+var ball15;
+var ball25;
+var num;
+var x;
 
 //Dictionary of configurations
 var config = {
@@ -250,6 +252,7 @@ function configurationShow(){
 	document.getElementById('valLeft').value = config['left'];
 	//nubmers of balls
 	document.getElementById('valBalls').value = config['balls'];
+	food_remain = config['balls'];
 	//colors of balls
 	document.getElementById('val5_balls').backgroundColor = config['5_balls'];
 	document.getElementById('val15_balls').backgroundColor = config['15_balls'];
@@ -264,6 +267,7 @@ function startGame(){
 	openPage('Game')
 	configurationShow();
 	context = canvas.getContext("2d");
+	x = config['right'];
 	Start();
 }
 
@@ -274,6 +278,7 @@ function Start() {
 	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
+	numinvalidation = 5;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
@@ -362,19 +367,54 @@ function Draw() {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {   
+			if (board[i][j] == 2) {  	
+				if(x == 2){     //down
+					context.beginPath();
+					context.arc(center.x, center.y, 20,  0.65* Math.PI, 0.35* Math.PI); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					context.arc(center.x - 9, center.y, 3, 0, 2 * Math.PI); // circle - packman's eye
+					context.fillStyle = "black"; //color
+					context.fill();
+				}
+				else if(x == 3){     //left
+					context.beginPath();
+					context.arc(center.x, center.y, 20,  0.85* Math.PI, 1.15* Math.PI, true); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					context.arc(center.x - 4, center.y - 12, 3, 0, 2 * Math.PI); // circle - packman's eye
+					context.fillStyle = "black"; //color
+					context.fill();
+				}
+				else if(x == 4 ){  //right
+					context.beginPath();
+					context.arc(center.x, center.y, 20, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					context.arc(center.x + 5, center.y - 12, 3, 0, 2 * Math.PI); // circle - packman's eye
+					context.fillStyle = "black"; //color
+					context.fill();
+				}
+				else{           //up
+					context.beginPath();
+					context.arc(center.x, center.y, 20, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
+					context.lineTo(center.x, center.y);
+					context.fillStyle = pac_color; //color
+					context.fill();
+					context.beginPath();
+					context.arc(center.x + 12, center.y - 8, 3, 0, 2 * Math.PI); // circle - packman's eye
+					context.fillStyle = "black"; //color
+					context.fill();
+				}
+			}else if (board[i][j] == 1) {
 				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle - packman's eye
-				context.fillStyle = "black"; //color
-				context.fill();
-			} else if (board[i][j] == 1) {
-				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle - ball's color
+				context.arc(center.x, center.y, 10, 0, 2 * Math.PI); // circle - ball's color
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 4) {
@@ -389,23 +429,26 @@ function Draw() {
 
 function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
-	var x = GetKeyPressed();
-	if (x == 1) {
+	let move_dire = GetKeyPressed();  //the current press
+	if(move_dire != undefined){
+		x = move_dire;
+	}
+	if (move_dire == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
 		}
 	}
-	if (x == 2) {
+	if (move_dire == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 		}
 	}
-	if (x == 3) {
+	if (move_dire == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
 		}
 	}
-	if (x == 4) {
+	if (move_dire == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 		}
@@ -424,17 +467,16 @@ function UpdatePosition() {
 		window.clearInterval(interval);
 		window.alert("Loser!");
 	}
-	else if(time_elapsed >= config['game_time']){
-		if(score < 100){
-			numinvalidation--;
-			window.clearInterval(interval);
-				str = "You are better then " + score + " points!";
-				window.alert(str);
-		}
-		else{
+    else if(time_elapsed >= config['game_time']){
+	 	if(score < 100){
+	 		window.clearInterval(interval);
+	 			str = "You are better then " + score + " points!";
+	 			window.alert(str);
+	 	}
+	 	else{
 			window.clearInterval(interval);
 			window.alert("Winner!!!");
-		}
+	 	}
 	}
 	else {
 		Draw();
