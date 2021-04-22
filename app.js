@@ -7,6 +7,11 @@ var pac_color;
 var time_elapsed;
 var interval;
 var signin = false;
+var numinvalidation = 5;
+var str;
+var ball5 = 0;
+var ball15 = 0;
+var ball25 = 0;
 
 //Dictionary of configurations
 var config = {
@@ -319,7 +324,7 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
+	interval = setInterval(UpdatePosition, 180);
 }
 
 function findRandomEmptyCell(board) {
@@ -351,24 +356,25 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
+	lblInvalidation.value = numinvalidation;
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {
+			if (board[i][j] == 2) {   
 				context.beginPath();
 				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
 				context.fillStyle = pac_color; //color
 				context.fill();
 				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle - packman's eye
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 1) {
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle - ball's color
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 4) {
@@ -405,22 +411,32 @@ function UpdatePosition() {
 		}
 	}
 	if (board[shape.i][shape.j] == 1) {
-		score++;
+		score+=5;
 	}
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 20 && time_elapsed <= 10) {
+	if (score >= 100 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	else if(time_elapsed >= config['game_time']){
+	//game finish but all balls not eaten
+	else if(numinvalidation == 0){            //end game
 		window.clearInterval(interval);
-		window.alert("Game completed");
+		window.alert("Loser!");
 	}
-	else if (score == 50) {
-		window.clearInterval(interval);
-		window.alert("Game completed");
-	} else {
+	else if(time_elapsed >= config['game_time']){
+		if(score < 100){
+			numinvalidation--;
+			window.clearInterval(interval);
+				str = "You are better then " + score + " points!";
+				window.alert(str);
+		}
+		else{
+			window.clearInterval(interval);
+			window.alert("Winner!!!");
+		}
+	}
+	else {
 		Draw();
 	}
 }
