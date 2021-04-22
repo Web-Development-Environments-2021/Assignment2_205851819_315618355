@@ -193,18 +193,27 @@
 				<table style="width:100%">
 						<tr>
 							<td>
+							<center>
 								<h3>Pacman Game</h3>
 								<div id="score">
 									<label for="lblScore">SCORE:</label>
 									<input id="lblScore" type="text" />
 								</div>
+								<br>
 								<div id="time">
 									<label for="lblTime">TIME:</label>
 									<input id="lblTime" type="text" />
 								</div>
+								<br>
+								<div id="invalidation">
+									<label for="lblInvalidation">Number invalidation:</label>
+									<input id="lblInvalidation" type="text" />
+								</div>
+								<br>
 								<div id="game">
 									<canvas id="canvas" height="600" width="600"></canvas>
 								</div>
+							</center>
 							</td>
 							<td>
 								<p>Configuration</p> 
@@ -251,6 +260,11 @@
 								<br>
 								<label for="conMonsters">Number of monsters:</label>
 								<label id="valMonsters"></label>
+
+								<!-- new game -->
+								<br>
+								<br>
+								<button id="newgame" class="newgame" type="submit" onclick="openPage('Configuration')">new game</button>
 							</td>
 						</tr>
 				</table>
