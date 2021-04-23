@@ -162,8 +162,8 @@
 						<br>
 						<br>
 						
-						<!--number monsters-->
-						<label for="points">Number of mansters (between 1 and 4):</label>
+						<!--number ghosts-->
+						<label for="points">Number of ghosts (between 1 and 4):</label>
 						<br>
 						<br>
 						<input type="range" id="points" name="points" min="1" max="4" value="2">
@@ -192,36 +192,40 @@
 			<div id="Game" class="tabcontent">
 				<table style="width:100%">
 						<tr>
-							<td>
+							<td style="width:75%">
+								<br>
+								<br>
+								<label for="loginName">Username:</label>
+								<label id="loginName" type="text"></label>
 							<center>
 								<h3>Pacman Game</h3>
 								<div id="score">
 									<label for="lblScore">SCORE:</label>
-									<input id="lblScore" type="text" />
+									<label id="lblScore" type="text"></label>
 								</div>
 								<br>
 								<div id="time">
 									<label for="lblTime">TIME:</label>
-									<input id="lblTime" type="text" />
+									<label id="lblTime" type="text"></label>
 								</div>
 								<br>
 								<div id="invalidation">
 									<label for="lblInvalidation">Number invalidation:</label>
-									<input id="lblInvalidation" type="text" />
+									<label id="lblInvalidation" type="text"></label>
 								</div>
 								<br>
 								<div id="game">
-									<canvas id="canvas" height="600" width="600"></canvas>
+									<canvas id="canvas" height="700" width="700"></canvas>
 								</div>
 							</center>
 							</td>
-							<td>
+							<td style="width:25%">
 								<p>Configuration</p> 
 								<br>
 								<br>
 								<!-- keys configuration -->
 								<label for="conUp">Up Button:</label>
-								<label for="valUp" id="valUp"></label>
+								<label for="valUp" id="valUp" ></label>
 								<br>
 								<br>
 								<label for="conDown">Down Button:</label>
@@ -229,37 +233,37 @@
 								<br>
 								<br>
 								<label for="conRight">Right Button:</label>
-								<label id="valRight"></label>
+								<label for="valRight" id="valRight"></label>
 								<br>
 								<br>
 								<label for="conLeft">Left Button:</label>
-								<label id="valLeft"></label>
+								<label for="valLeft" id="valLeft"></label>
 								<!-- number of balls -->
 								<br>
 								<br>
 								<label for="conBalls">Numbers of balls:</label>
-								<label id="valBalls"></label>
+								<label for="valBalls" id="valBalls"></label>
 
 								<!-- colors -->
 								<br>
 								<br>
-								<label for="con5_balls">5 balls color:</label>
-								<label id="val5_balls"></label>
-								<label for="con15_balls">15 balls color:</label>
-								<label id="val15_balls"></label>
-								<label for="con25_balls">25 balls color:</label>
-								<label id="val25_balls"></label>
+								<label for="con5_balls" id="con5_balls">5 balls color</label>
+								<!--<label id="val5_balls"></label>-->
+								<label for="con15_balls" id="con15_balls">15 balls color</label>
+								<!--<label id="val15_balls"></label>-->
+								<label for="con25_balls" id="con25_balls">25 balls color</label>
+								<!--<label id="val25_balls"></label>-->
 
 								<!-- time game -->
 								<br>
 								<br>
 								<label for="conTime">Total game time:</label>
-								<label id="valTime"></label>
+								<label for="valTime" id="valTime"></label>
 
 								<br>
 								<br>
-								<label for="conMonsters">Number of monsters:</label>
-								<label id="valMonsters"></label>
+								<label for="conGhost">Number of ghosts:</label>
+								<label for="valGhost" id="valGhost"></label>
 
 								<!-- new game -->
 								<br>
