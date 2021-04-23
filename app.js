@@ -24,6 +24,7 @@ var login_username = null;
 //
 var in_game = false;
 
+
 //Dictionary of configurations
 var config = {
 	//keys
@@ -313,6 +314,7 @@ function startGame(){
 	put_foods();
 	put_pacman();
 	initialized_keys();
+
 }
 
 function initialized_boardGame(){
@@ -559,7 +561,6 @@ function Draw() {
 				context.fillStyle = "black"; //color
 				context.fill();*/
 				draw_pacman(center.x, center.y);
-
 			} else if (board[i][j] == 3) { // 5 balls
 				context.beginPath();
 				context.arc(center.x - 20, center.y - 20, 5, 0, 2 * Math.PI); // circle - 5 ball's color
