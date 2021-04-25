@@ -444,7 +444,6 @@ function put_pacman(){
 	//place the i,j of the pacman
 	shape.i = emptyCell[0]; 
 	shape.j = emptyCell[1];
-	initialized_keys();
 }
 
 function initialized_keys() { 
@@ -664,7 +663,11 @@ function UpdatePosition() {
 			pac_color = "green";
 		}*/
 		//game finish but all balls not eaten
-		if(num_invalidation == 0){            //end game when there is no lives
+		if(check_collision()){
+			ghost_collision();
+			alert("collision");
+		}
+		else if(num_invalidation == 0){            //end game when there is no lives
 			window.clearInterval(interval);
 			window.alert("Loser!");
 		}
@@ -677,10 +680,6 @@ function UpdatePosition() {
 				window.clearInterval(interval);
 				window.alert("Winner!!!");
 			}
-		}
-		else if(check_collision()){
-			alert("collision");
-			ghost_collision();
 		}
 		else {
 			Draw();
