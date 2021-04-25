@@ -201,7 +201,7 @@ $(document).ready(function(){
 	aboutButton.addEventListener('click', function onOpen() {
 		openPage('About');
 		if (typeof modalDialog.showModal == "function") {
-			modalDialog.show();
+			modalDialog.showModal();
 			modalDialog.style.visibility = 'visible';
 		} else {
 		alert("The <dialog> API is not supported by this browser");
@@ -222,7 +222,7 @@ $(document).ready(function(){
 	
 	window.top.onclick = function(event) {
 		if(event.target == aboutDiv && modalDialog.style.visibility.value == 'visible') {
-			modalDialog.style.visibility = 'hidden';
+			modalDialog.style.visibility = 'close';
 		}
 	}
 });
@@ -456,13 +456,13 @@ function initialized_keys() {
 		},
 		false
 	);
-	addEventListener(
-		"keyup",
-		function(e) {
-			keysDown[e.keyCode] = false;
-		},
-		false
-	);
+	// addEventListener(
+	// 	"keyup",
+	// 	function(e) {
+	// 		keysDown[e.keyCode] = false;
+	// 	},
+	// 	false
+	// );
 	interval = setInterval(UpdatePosition, 200); //
 }
 
@@ -615,28 +615,38 @@ function UpdatePosition() {
 	if(in_game){
 		board[shape.i][shape.j][0] = ids.empty_id; // empty
 		let move_dire = GetKeyPressed();  //the current press
-		if(move_dire != undefined){
-			x = move_dire;
-		}
+		// if(move_dire != undefined){
+		// 	x = move_dire;
+		// }
 		if (move_dire == 1) {
 			if (shape.j > 0 && board[shape.i][shape.j - 1] != 2) {
 				shape.j--;
 			}
+			move_dire = undefined;
+			keysDown[config['up']] = false;
 		}
 		else if (move_dire == 2) {
 			if (shape.j < y_size && board[shape.i][shape.j + 1] != 2) {
 				shape.j++;
 			}
+			move_dire = undefined;
+			keysDown[config['down']] = false;
 		}
 		else if (move_dire == 3) {
 			if (shape.i > 0 && board[shape.i - 1][shape.j] != 2) {
 				shape.i--;
 			}
+			move_dire = undefined;
+			keysDown[config['left']] = false;
 		}
 		else if (move_dire == 4) {
 			if (shape.i < x_size && board[shape.i + 1][shape.j] != 2) {
 				shape.i++;
 			}
+			move_dire = undefined;
+			keysDown[config['right']] = false;
+		} else {
+			Draw();
 		}
 		if (board[shape.i][shape.j] == ids.ball5_id) { //5 balls
 			score+=5;
@@ -719,8 +729,8 @@ function openPage(pageName) {
   
 	// Show the specific tab content
 	document.getElementById(pageName).style.display = "block";
-  
+
 	// Add the specific color to the button used to open the tab content
 	// elmnt.style.backgroundColor = color;
 }
-  
+
