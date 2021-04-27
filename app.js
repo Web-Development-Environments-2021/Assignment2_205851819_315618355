@@ -21,7 +21,10 @@ var num_invalidation; //lives
 var login_username = null;
 //
 var in_game = false;
-
+//
+var clock = new Object();
+var countClock;
+var addClock;
 
 //Dictionary of configurations
 var config = {
@@ -52,11 +55,29 @@ var ids = {
 	ghost3_id : 8,
 	ghost4_id : 9,
 	//speicl
-	speicl_id : 10
+	clock_id : 10
 }
 
 //ghost positons
 var ghost_pos = [];
+
+//file name of pictures
+var images = {
+	//pacman
+	left : 'left.png',
+	right : 'right.png',
+	up : 'up.png',
+	down : 'down.png',
+	//ghost
+	ghost1 : 'ghost1.png',
+	ghost2 : 'ghost2.png',
+	ghost3 : 'ghost3.png',
+	ghost4 : 'ghost4.png',
+	//speicl
+	clock_id : 'clock.png',
+	//food
+	food_id : 'strawberry.png'
+}
 
 //global dictionary
 var dict = {
@@ -323,6 +344,8 @@ function initialized_boardGame(){
 	score = 0;
 	pac_color = "yellow";
 	start_time = new Date();
+	countClock = start_time;
+	addClock = false;
 	num_invalidation = 5; // reset the lives
 	board = new Array();
 	for (let i = 0; i < x_size; i++){
@@ -433,28 +456,30 @@ function put_foods(){
 	let food_remain = [config['balls']*0.6,config['balls']*0.3,config['balls']*0.1] //number of balls
 	while (food_remain[0] > 0) {
 		let emptyCell = findRandomEmptyCell();
-		board[emptyCell[0]][emptyCell[1]][0] = 3;
+		board[emptyCell[0]][emptyCell[1]][0] = ids.ball5_id;
 		food_remain[0]--;
 	}
 	while (food_remain[1] > 0) {
 		let emptyCell = findRandomEmptyCell();
-		board[emptyCell[0]][emptyCell[1]][0] = 4;
+		board[emptyCell[0]][emptyCell[1]][0] = ids.ball15_id;
 		food_remain[1]--;
 	}
 	while (food_remain[2] > 0) {
 		let emptyCell = findRandomEmptyCell();
-		board[emptyCell[0]][emptyCell[1]][0] = 5;
+		board[emptyCell[0]][emptyCell[1]][0] = ids.ball25_id;
 		food_remain[2]--;
 	}
 }
 
 function put_pacman(){
 	let emptyCell = findRandomEmptyCell();
-	board[emptyCell[0]][emptyCell[1]][0] = 1;
+	board[emptyCell[0]][emptyCell[1]][0] = ids.packman_id;
 	//place the i,j of the pacman
 	shape.i = emptyCell[0]; 
 	shape.j = emptyCell[1];
 }
+
+
 
 function initialized_keys() { 
 	keysDown = {};
@@ -671,15 +696,23 @@ function UpdatePosition() {
 		board[shape.i][shape.j] = [ids.packman_id]; // packman
 		var currentTime = new Date();
 		time_elapsed = (currentTime - start_time) / 1000;
-		/*if (score >= 100 && time_elapsed <= 10) {
-			pac_color = "green";
-		}*/
-
+		if((currentTime - countClock)/1000 >=20 && !addClock){
+			let place = findRandomEmptyCell();
+			clock.row = place[0];
+			clock.col = place[1];
+			board[place[0]][place[1]][0] = [10];
+			addClock = true;
+		}
 		if(check_collision()){
 			ghost_collision();
 			alert("collision");
 		}
-		if(num_invalidation == 0){            //end game when there is no lives
+		if(clock.row == shape.i && clock.col == shape.j && addClock){
+			eaten_clock();
+			// alert("You got 30 seconds more");
+		}
+		//end game when there is no lives
+		if(num_invalidation == 0){            
 			window.clearInterval(interval);
 			// window.clearInterval(intervalGhost);
 			window.alert("Loser!");
@@ -700,6 +733,15 @@ function UpdatePosition() {
 			Draw();
 		}
 	}
+}
+
+function eaten_clock(){
+		board[clock.row][clock.col][0] = [1];
+		config["game_time"] += 30; 
+		//$("#valTime").text(config['game_time']);
+		countClock = new Date();
+		addClock = false;
+		Draw();	
 }
 
 function intervalUpdateGhosts(){
@@ -840,6 +882,7 @@ function ghost_collision(){ ////////////
 	put_ghosts();
 	put_pacman();
 }
+
 
 function pause_game(){
 	canvas.width = canvas.width;
