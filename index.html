@@ -105,25 +105,25 @@
 
 						<!--up button-->
 						<label for="upbutton">Up Button:</label>
-						<input id="upbutton" name="upbutton" type="text" value="38" />
+						<input id="upbutton" name="upbutton" type="text" onkeydown="confikey(event, this)" value="ArrowUp" />
 						<br>
 						<br>
 
 						<!--down button-->
 						<label for="downbutton">Down Button:</label>
-						<input id="downbutton" name="downbutton" type="text"  value="40"/>
+						<input id="downbutton" name="downbutton" type="text" onkeydown="confikey(event, this)" value="ArrowDown"/>
 						<br>
 						<br>
 
 						<!--right button-->
 						<label for="rightbutton">Right Button:</label>
-						<input id="rightbutton"name="rightbutton" type="text" value="39" />
+						<input id="rightbutton"name="rightbutton" type="text" onkeydown="confikey(event, this)" value="ArrowRight" />
 						<br>
 						<br>
 
 						<!--left button-->
 						<label for="leftbutton">Left Button:</label> 
-						<input id="leftbutton" name="leftbutton" type="text"  value="37"/>
+						<input id="leftbutton" name="leftbutton" type="text" onkeydown="confikey(event, this)" value="ArrowLeft"/>
 						<br>
 						<br>
 
@@ -215,7 +215,7 @@
 								</div>
 								<br>
 								<div id="game">
-									<canvas id="canvas" height="700" width="700"></canvas>
+									<canvas id="canvas" height="600" width="600"></canvas>
 								</div>
 							<!--	<audio id = "targetSound" preload = "auto">
 									<source src = "sounds/blocker_hit.mp3" type = "audio/mpeg"/></audio>   change acording to our music
