@@ -8,6 +8,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var intervalGhost; 
 //? var signin = false;
 var balls5_color;
 var balls15_color;
@@ -15,9 +16,6 @@ var balls25_color;
 var last_move;
 //
 var num_invalidation; //lives
-/*var ball5;
-var ball15;
-var ball25;*/
 
 //active user
 var login_username = null;
@@ -209,17 +207,21 @@ $(document).ready(function(){
 	});
 
 	// closing the modalDialog
-	aboutDiv.addEventListener('close', function onClose(event) {
-		if(event.keyCode == 27){
-			modalDialog.style.visibility = 'hidden';
-		}
-		
+	window.addEventListener('mouseup', function(event){
+		if(event.target != modalDialog)   //not in modalDialog scope
+			null;
+		else
+			modalDialog.close();
 	});
+
 	xButton.addEventListener('click', function onClose(event) {
 		showDialog = false;
-		modalDialog.style.visibility = 'hidden';
+		modalDialog.close();
 	});
-	
+
+
+
+	//ESC
 	window.top.onclick = function(event) {
 		if(event.target == aboutDiv && modalDialog.style.visibility.value == 'visible') {
 			modalDialog.style.visibility = 'close';
@@ -399,23 +401,31 @@ function put_ghosts(){
 	ghost_pos[0] = new Object();
 	ghost_pos[0].row = 1;
 	ghost_pos[0].col = 1;
+	ghost_pos[0].last_row = 1;
+	ghost_pos[0].last_col = 1;
 	if(config['ghost_num'] >= 2){
 		board[1][y_size-2][0] = ids.ghost2_id;
 		ghost_pos[1] = new Object();
 		ghost_pos[1].row = 1;
 		ghost_pos[1].col = y_size-2;
+		ghost_pos[1].last_row = 1;
+		ghost_pos[1].last_col = y_size-2;
 	}
 	if(config['ghost_num'] >= 3){
 		board[x_size-2][1][0] = ids.ghost3_id;
 		ghost_pos[2] = new Object();
 		ghost_pos[2].row = x_size-2;
 		ghost_pos[2].col = 1;
+		ghost_pos[2].last_row = x_size-2;
+		ghost_pos[2].last_col = 1;
 	}
 	if(config['ghost_num'] >= 4){
 		board[x_size-2][y_size-2][0] = ids.ghost4_id;
 		ghost_pos[3] = new Object();
 		ghost_pos[3].row = x_size-2;
 		ghost_pos[3].col = y_size-2;
+		ghost_pos[3].last_row = x_size-2;
+		ghost_pos[3].last_col = y_size-2;
 	}
 }
 
@@ -463,6 +473,7 @@ function initialized_keys() {
 	// 	false
 	// );
 	interval = setInterval(UpdatePosition, 200); //
+	// intervalGhost = setInterval(intervalUpdateGhosts,400);
 }
 
 function findRandomEmptyCell() {
@@ -546,65 +557,68 @@ function Draw() {
 	$("#lblInvalidation").text(num_invalidation);
 	for (var i = 0; i < x_size; i++) {
 		for (var j = 0; j < y_size; j++) {
+			let len = board[i][j].length - 1;
 			var center = new Object();
 			center.x = i * 40 + 40;
 			center.y = j * 40 + 40;
-			if (board[i][j] == 1) {   //pacman
-				/*context.beginPath();
-				context.arc(center.x - 20, center.y - 20, 20, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-				context.lineTo(center.x - 20, center.y - 20);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x - 15, center.y - 30, 3, 0, 2 * Math.PI); // circle - packman's eye
-				context.fillStyle = "black"; //color
-				context.fill();*/
+			if (board[i][j][len] == 1) {   //pacman
+			// if (board[i][j] == 1) {
 				draw_pacman(center.x, center.y);
-			} else if (board[i][j] == 3) { // 5 balls
+			} else if (board[i][j][len] == 3) { // 5 balls
+			// } else if (board[i][j] == 3) {
 				context.beginPath();
 				context.arc(center.x - 20, center.y - 20, 5, 0, 2 * Math.PI); // circle - 5 ball's color
 				context.fillStyle = config['5_balls']; //color
 				context.fill();
-			} else if (board[i][j] == 4) { //15 balls
+			} else if (board[i][j][len] == 4) { //15 balls
+			// } else if (board[i][j] == 4) {
 				context.beginPath();
 				context.arc(center.x - 20, center.y - 20, 5, 0, 2 * Math.PI); // circle - 15 ball's color
 				context.fillStyle = config['15_balls']; //color
 				context.fill();
-			} else if (board[i][j] == 5) { // 25 balls
+			} else if (board[i][j][len] == 5) { // 25 balls
+			// } else if (board[i][j] == 5) {
 				context.beginPath();
 				context.arc(center.x - 20, center.y - 20, 5, 0, 2 * Math.PI); // circle - 25 ball's color
 				context.fillStyle = config['25_balls']; //color
 				context.fill();
-			} else if (board[i][j] == 2) { // obstacles
+			} else if (board[i][j][len] == 2) { // obstacles
+			// } else if (board[i][j] == 2) {
 				context.beginPath();
 				context.rect(center.x - 40, center.y - 40, 40, 40);
 				context.fillStyle = "grey"; //color
 				context.fill();
-			} else if (board[i][j] == 6) { 
+			} else if (board[i][j][len] == 6) { 
+			// } else if (board[i][j] == 6) {
 				context.beginPath();
 				context.rect(center.x - 40, center.y - 40, 40, 40);
 				context.fillStyle = "red"; //color
 				context.fill();
-			} else if (board[i][j] == 7) {
+			} else if (board[i][j][len] == 7) {
+			// } else if (board[i][j] == 7) {
 				context.beginPath();
 				context.rect(center.x - 40, center.y - 40, 40, 40);
 				context.fillStyle = "orange"; //color
 				context.fill();
-			} else if (board[i][j] == 8) {
+			} else if (board[i][j][len] == 8) {
+			// } else if (board[i][j] == 8) {
 				context.beginPath();
 				context.rect(center.x - 40, center.y - 40, 40, 40);
 				context.fillStyle = "green"; //color
 				context.fill();
-			} else if (board[i][j] == 9) {
+			} else if (board[i][j][len] == 9) {
+			// } else if (board[i][j] == 9) {
 				context.beginPath();
 				context.rect(center.x - 40, center.y - 40, 40, 40);
 				context.fillStyle = "purple"; //color
 				context.fill();
-			} else if (board[i][j] == 10) {
+			} else if (board[i][j][len] == 10) {
+			// } else if (board[i][j] == 10) {
 				context.beginPath();
 				context.rect(center.x - 40, center.y - 40, 40, 40);
 				context.fillStyle = "pink"; //color
 				context.fill();
+			
 			}
 		}
 	}
@@ -614,9 +628,7 @@ function UpdatePosition() {
 	if(in_game){
 		board[shape.i][shape.j][0] = ids.empty_id; // empty
 		let move_dire = GetKeyPressed();  //the current press
-		// if(move_dire != undefined){
-		// 	x = move_dire;
-		// }
+		
 		if (move_dire == 1) {
 			if (shape.j > 0 && board[shape.i][shape.j - 1] != 2) {
 				shape.j--;
@@ -662,22 +674,25 @@ function UpdatePosition() {
 		/*if (score >= 100 && time_elapsed <= 10) {
 			pac_color = "green";
 		}*/
-		//game finish but all balls not eaten
+
 		if(check_collision()){
 			ghost_collision();
 			alert("collision");
 		}
-		else if(num_invalidation == 0){            //end game when there is no lives
+		if(num_invalidation == 0){            //end game when there is no lives
 			window.clearInterval(interval);
+			// window.clearInterval(intervalGhost);
 			window.alert("Loser!");
 		}
 		else if(time_elapsed >= config['game_time']){
 			if(score < 100){
 				window.clearInterval(interval);
+				// window.clearInterval(intervalGhost);
 				window.alert("You are better then " + score + " points!");
 			}
 			else{
 				window.clearInterval(interval);
+				// window.clearInterval(intervalGhost);
 				window.alert("Winner!!!");
 			}
 		}
@@ -686,6 +701,127 @@ function UpdatePosition() {
 		}
 	}
 }
+
+function intervalUpdateGhosts(){
+	// for (let i=0; i<config['ghost_num'];i++) {
+	// 	let tmp_row = ghost_pos[i].row;
+	// 	let tmp_col = ghost_pos[i].col;
+	// 	//remove ghost from last ghost
+	// 	if(board[ghost_pos[i].row][ghost_pos[i].col].length == 1){
+	// 		board[ghost_pos[i].row][ghost_pos[i].col] = [0];
+	// 	}
+	// 	else{
+	// 		let ind = findghost(6+i, ghost_pos[i].row, ghost_pos[i].col);
+	// 		board[ghost_pos[i].row][ghost_pos[i].col].slice(ind, 1);		
+	// 	}
+	// 	if(board[ghost_pos[i].row][ghost_pos[i].col][1] != undefined)
+	// 		console.log("last ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][1]);
+	// 	else
+	// 		console.log("last ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][0]);
+	// 	let arr_pos = UpdatePositionGhost(ghost_pos[i]);
+	// 	if(arr_pos == 0){
+	// 		board[ghost_pos[i].row][ghost_pos[i].col] = [6+i];
+	// 		console.log("current ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][0]);
+	// 	}
+	// 	else // if(arr_pos == 1)
+	// 	{
+	// 		board[ghost_pos[i].row][ghost_pos[i].col].push(6+i);
+	// 		console.log("current ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][1]);
+	// 	}	
+	// 	ghost_pos[i].last_row = tmp_row;
+	// 	ghost_pos[i].last_col = tmp_col;
+	// 	console.log("arr of place 0: " + board[ghost_pos[i].last_row][ghost_pos[i].last_col][0]);
+	// 	if(board[ghost_pos[i].last_row][ghost_pos[i].last_col].length > 1)
+	// 		console.log("arr of place 1: " + board[ghost_pos[i].last_row][ghost_pos[i].last_col][1]);
+	// }
+	// Draw();
+}
+
+function UpdatePositionGhost(obj){
+
+	// issue with the keys, keys in dict change to string, need to change to array or find a function in google that change it back.
+	
+	// if(obj != undefined){
+	// 	let pos = {"Up": [obj.row-1, obj.col],
+	// 				"Down": [obj.row+1, obj.col],
+	// 				"Left": [obj.row, obj.col-1],
+	// 				"Right": [obj.row, obj.col+1]} 
+	// 	let moves = {} // {up: 0, down: 0, left: 0, right: 0}; 
+	// 	moves["Up"] = Math.abs(shape.i-(obj.row-1))+Math.abs(shape.j-obj.col) //up
+	// 	moves["Down"] = Math.abs(shape.i-(obj.row+1))+Math.abs(shape.j-obj.col) //down
+	// 	moves["Left"] = Math.abs(shape.i-obj.row)+Math.abs(shape.j-(obj.col-1)) //left
+	// 	moves["Right"] = Math.abs(shape.i-obj.row)+Math.abs(shape.j-(obj.col+1)) //right
+	// 	let min = 0;
+	// 	let min_move = null;
+	// 	let keys = Object.keys(moves);
+	// 	let values = Object.values(moves);
+	// 	let positions = Object.values(pos);
+	// 	// const [move, value] of Object.entries(moves)
+	// 	for (let i=0; i<4; i++) {
+	// 		let key = keys[i]; // will be up, down, left and right
+	// 		let move = positions[i]; //place in the board list-[x,y]
+	// 		console.log("the according position: " + move);
+	// 		let place_val = values[i];
+	// 		console.log(place_val);
+	// 		let arr_pos = check_position(move[0], move[1], obj);
+	// 		if(move[0] > x_size-1 || move[0] < 0 || move[1] > y_size-1 || move[1] < 0)
+	// 			continue
+	// 		console.log(move);
+	// 		if(min_move == null && arr_pos != -1){
+	// 			min_move = move;
+	// 			min = place_val
+	// 		}
+	// 		else if(place_val < min && arr_pos != -1){
+	// 			min = place_val;
+	// 			min_move = move;
+	// 		}
+	// 	}
+	// 	if(min_move != undefined){
+	// 		obj.row = min_move[0];
+	// 		obj.col = min_move[1];
+	// 	}
+	// 	return check_position(obj.row, obj.col, null);
+	// }
+}
+
+//check where to put ghost in the squre's array 
+function check_position(i, j, ghost){
+	// let arr_plc = board[i][j];
+	// //opstacals or ghosts
+	// for(let k=0; k<4; k++){
+	// 	let sec_con = findghost(6+k, i, j);
+	// 	console.log(sec_con);
+	// 	if(sec_con == 0 || sec_con == 1)
+	// 		return -1;
+	// }
+	// if(arr_plc[0] == 2){   
+	// 	return -1;
+	// }
+	// //check if the move is vaild
+	// if(ghost != null && ghost.last_row == i && ghost.last_col == j){
+	// 	return -1;
+	// }
+	// //empty cell
+	// if(arr_plc[0] == 0) {
+	// 	return 0;
+	// }//balls
+	// if(board[i][j][0] == 3 || board[i][j][0] == 4 || board[i][j][0] == 5){
+	// 	return 1;
+	// }
+	// return 1;
+
+}
+
+ //find the first index of the element
+function findghost(val, row, col){
+	// if(board[row][col][0] == val){
+	// 	return 0
+	// }
+	// else if(board[row][col][1] == val)
+	// 	return 1;
+	// return -1;
+}
+
 
 function check_collision(){
 	for(let i = 0; i< config['ghost_num']; i++){
