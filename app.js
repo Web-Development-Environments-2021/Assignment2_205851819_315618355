@@ -374,9 +374,8 @@ function initialized_boardGame(){
 	countClock = start_time;
 	addClock = false;
 	//sound
-	//NEEDED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//Play untill end game
 	music_play = document.getElementById( "gameSound" );
+	music_play.loop = true;
 	num_invalidation = 5; // reset the lives
 	board = [];
 	for (let i = 0; i < x_size; i++){
@@ -527,14 +526,14 @@ function initialized_keys() {
 		},
 		false
 	);
-	// addEventListener(
-	// 	"keyup",
-	// 	function(e) {
-	// 		keysDown[e.keyCode] = false;
-	// 	},
-	// 	false
-	// );
-	interval = setInterval(UpdatePosition, 200); //
+	addEventListener(
+		"keyup",
+		function(e) {
+			keysDown[e.keyCode] = false;
+		},
+		false
+	);
+	interval = setInterval(UpdatePosition, 200); // maybe to enlarge the time
 	intervalGhost = setInterval(intervalUpdateGhosts,600);
 }
 
@@ -585,8 +584,14 @@ function GetKeyPressed() {
 }
 
 function draw_pacman(center_x, center_y){
-	//NEEDED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	if(move_dire === undefined || move_dire == 4)
+	console.log("DRAW!!!")
+	console.log(move_dire);
+	if(move_dire === undefined && shape.key != undefined){
+		move_dire = shape.key;
+	}
+	else if(shape.key === undefined)  move_dire = 4;
+	
+	if(move_dire == 4)
 		context.drawImage(rightImg, center_x-40, center_y-40, 40, 40);
 	else if(move_dire == 3)
 		context.drawImage(leftImg, center_x-40, center_y-40, 40, 40);
@@ -650,33 +655,31 @@ function UpdatePosition() {
 	if(in_game){
 		board[shape.i][shape.j][0] = ids.empty_id; // empty
 		move_dire = GetKeyPressed();  //the current press
+		// console.log("UPDATE");
+		// console.log(move_dire);
 		if (move_dire == 1) {
 			if (shape.j > 0 && board[shape.i][shape.j - 1][0] != 2) {
 				shape.j--;
 			}
-			move_dire = undefined;
-			keysDown[config['up']] = false;
+			shape.key = 1;
 		}
 		else if (move_dire == 2) {
 			if (shape.j < y_size && board[shape.i][shape.j + 1][0] != 2) {
 				shape.j++;
 			}
-			move_dire = undefined;
-			keysDown[config['down']] = false;
+			shape.key = 2;
 		}
 		else if (move_dire == 3) {
 			if (shape.i > 0 && board[shape.i - 1][shape.j][0] != 2) {
 				shape.i--;
 			}
-			move_dire = undefined;
-			keysDown[config['left']] = false;
+			shape.key = 3;
 		}
 		else if (move_dire == 4) {
 			if (shape.i < x_size && board[shape.i + 1][shape.j][0] != 2) {
 				shape.i++;
 			}
-			move_dire = undefined;
-			keysDown[config['right']] = false;
+			shape.key = 4;
 		} else {
 			Draw();
 		}
@@ -724,8 +727,6 @@ function UpdatePosition() {
 				window.alert("You are better then " + score + " points!");
 			}
 			else{
-				//NEEDED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				//PACMAN ISN'T SHOW AT THE END
 				window.clearInterval(interval);
 				window.clearInterval(intervalGhost);
 				pause_game();
@@ -936,7 +937,6 @@ function ghost_collision(){ ////////////
 	
 		}
 	}
-	// setTimeout(() => { Draw() }, 60);
 	board[shape.i][shape.j] = [0];
 	put_ghosts();
 	put_pacman();
