@@ -1,4 +1,284 @@
 
+/* dialog */
+
+
+td[id="pacmanText"] img{
+  vertical-align: inherit;
+  width: 450px;
+  height: 120px;
+  text-align:center;
+  margin-left: 250px;
+  display: inline-block;
+}
+
+/*td[id="pacmanText"]{
+  vertical-align: inherit;
+  width: 450px;
+  height: 120px;
+  text-align:center;
+}*/
+
+td[id="names"] {
+  text-align:center;
+  display: inline-block;
+  vertical-align: inherit;
+  padding: 10px;
+  width: 300px;
+  border: 3px solid black;
+  margin-left: 200px;
+  margin-top: 10px;
+}
+
+/* About page */
+div[id="About"] dialog[id="ModalDialog"] {
+  margin-top: 250px;
+} 
+
+/* Game page */
+
+td[id="configurationTD"]{
+  padding: 0px;
+  margin-top: 0px;
+}
+
+
+h3[id="textGame"]{
+  font-family: 'CrackMan', sans-serif;
+  font-size: 70px;
+  line-height: 20px;
+  color: rgb(255, 255, 0); 
+}
+
+h3[id="textConfiguration"]{
+  font-family: 'Original Surfer', cursive;
+  font-size: 60px;
+  line-height: 20px;
+  color: grey; 
+}
+
+div[id="Game"] table{
+  background-color: rgb(3, 3, 3)
+}
+
+div[id="Game"] label{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  color: white;
+}
+
+div[id="Game"] label[id="GameUser"]{
+  padding: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  color: white;
+}
+
+div[id="Game"] button[id="newgame"] {
+  background-color: rgb(255, 255, 0);
+  border: none;
+  color: black;
+  padding: 10px 27px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+div[id="Game"] button:hover {
+background-color: black;
+border: none;
+color: white;
+padding: 8px 27px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+border: 2px solid rgb(255,255,0);
+}
+
+/* configuration page */
+
+h3[id="textConf"]{
+  font-family: 'Dancing Script', cursive;
+  font-size: 70px;
+  line-height: 20px;
+}
+
+div[id="Configuration"] label{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  color: black;
+}
+
+div[id="Configuration"] p[class="message"]{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  color: black;
+}
+
+div[id="Configuration"] input{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  padding: 3px 40px;
+}
+
+div[id="Configuration"] input[type="color"]{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  padding: 3px 3px;
+}
+
+div[id="Configuration"] button{
+  background-color: black; 
+  border: none;
+  color: white;
+  padding: 10px 27px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+div[id="Configuration"] button:hover {
+background-color: rgb(255,255,0);
+border: none;
+color: black;
+padding: 10px 27px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+}
+
+/* login page */
+h3[id="textLogin"] {
+  font-family: 'Dancing Script', cursive;
+  font-size: 70px;
+  line-height: 20px;
+}
+
+div[id="Login"] label{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  color: black;
+}
+
+div[id="Login"] p[class="message"]{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  color: black;
+}
+
+div[id="Login"] input{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  padding: 3px 40px;
+}
+
+button[class="LoginBtn"] {
+    background-color: rgb(113, 202, 253); 
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+  
+button[class="LoginBtn"]:hover {
+  background-color: rgb(0, 204, 255); 
+  border: none;
+  color: white;
+  padding: 10px 27px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+/* register page */
+
+h3[id="textRegister"] {
+  font-family: 'Dancing Script', cursive;
+  font-size: 70px;
+  line-height: 20px;
+}
+
+div[id="Register"] label, p[id="messageRegister"]{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+}
+
+div[id="Register"] p[class="message"]{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+}
+
+div[id="Register"] input{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  padding: 3px 40px;
+}
+
+button[class="submit"]{
+  background-color: rgb(113, 202, 253); 
+  border: none;
+  color: white;
+  padding: 10px 27px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+button[class="submit"]:hover {
+  background-color: rgb(0, 204, 255); 
+  border: none;
+  color: white;
+  padding: 10px 27px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+/* welcome page */
+
+h3[id="textWelcome"] {
+  font-family: 'Dancing Script', cursive;
+  font-size: 90px;
+  line-height: 0;
+}
+
+img[id="welcomePic"] {
+  line-height: 0;
+  height: 70%;
+  width: 40%;
+}
+
+button[class="WelcomeBts"]{
+  background-color: #555; 
+  border: none;
+  color: white;
+  padding: 20px 37px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+button[class="WelcomeBts"]:hover {
+  background-color: black; 
+  border: none;
+  color: white;
+  padding: 20px 37px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
 /* x Button dialog */
 /*ViewEncapsulation.NONE*/
 
@@ -106,3 +386,91 @@ body, html {
   text-decoration: none;
 }
 
+/* logo pacman */
+
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px&display=swap');
+
+td[id="pac-logo"] {
+  background: white;
+  color: black;
+  padding: 0;
+  margin: 0;
+  font-family: 'Slabo 27px', serif;
+  /*display: flex;*/
+  /*height: 100vh;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+}
+
+.pacman {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgb(255, 255, 0);
+  position: relative;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.pacman__eye {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  top: 20px;
+  right: 40px;
+  background: #333333;
+}
+
+.pacman__mouth {
+  background: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+  animation-name: eat;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+}
+
+.pacman__food {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: black;
+  border-radius: 50%;
+  top: 40%;
+  left: 120px;
+  animation-name: food;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes eat {
+  0% {
+    clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+  }
+  25% {
+    clip-path: polygon(100% 60%, 44% 48%, 100% 40%);
+  }
+  50% {
+    clip-path: polygon(100% 50%, 44% 48%, 100% 50%);
+  }
+  75% {
+   clip-path: polygon(100% 59%, 44% 48%, 100% 35%);
+  }
+  100% {
+   clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+  }
+}
+
+@keyframes food {
+  0% {
+    transform: translateX(0);
+     opacity: 1;
+  }
+  100% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+}

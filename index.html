@@ -6,15 +6,24 @@
 		<link rel="stylesheet" href="styles.css" />
 		<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap');
+			@import url('http://fonts.cdnfonts.com/css/crackman');
+			@import url('https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap');
+		</style>
+		
 		<table style="width:100%">
 			<tr>
-				<td style="width: 20%">
-					<img src="logo.png" style="width: 50px">
+				<td id="pac-logo" style="width: 10%">
+						<div class="pacman">
+							<div class="pacman__eye"></div>
+							<div class="pacman__mouth"></div>
+							<div class="pacman__food"></div>
+						</div>
 				</td>
-				<td id="pacmanText" style="width: 25%; margin-left: 20px">
-					<img src="packmanText.png" style="width: 400px">
+				<td id="pacmanText"><img src="packmanText.png">
 				</td>
-				<td>
+				<td id="names">
 					<p>Amit Nadam, id:</p>
 					<p>Yael Kotliar, id:</p>
 				</td>
@@ -28,49 +37,46 @@
 			<button id="AboutBtn" class="tablink" onclick="openPage('About')">About</button>
 			
 			<div id="Welcome" class="tabcontent">
-					<br>
-					<br>
-					<br>
 					<center>
-
-						<h3>Welcome</h3>
-						<br>
-						<button onclick="openPage('Register')">Register</button>
+						<h3 id="textWelcome">Welcome</h3>
+						<img id="welcomePic" src="welcome.png">				
 						<br>
 						<br>
-						<button onclick="openPage('Login')">Login</button> 
+						<br>
+						<button class="WelcomeBts" onclick="openPage('Register')">Register</button>
+						<br>
+						<br>
+						<button class="WelcomeBts"  onclick="openPage('Login')">Login</button> 
 					</center> 
 			</div>
 			
 			<center>
 				<div id="Register" class="tabcontent">
 					<form class="cmxform" id="signupForm" autocomplete="off">
-						<br>
-						<br>
-						<h3>Register</h3>
+						<h3 id="textRegister">Register</h3>
 							<!-- username -->
-							<label for="username">Username:</label>
-							<input id="username"name="username" placeholder="username" type="text" />
+						<label for="username">Username:</label>
+						<input id="username"name="username" placeholder="username" type="text" />
 						<br>
 						<br> <!-- password -->
-							<label for="password">Password:</label>
-							<input type="password" id="password" name="password" placeholder="password" type="text"/>
+						<label for="password">Password:</label>
+						<input type="password" id="password" name="password" placeholder="password" type="text"/>
 						<br>
 						<br> <!-- fullname -->
-							<label for="fullname">Fullname:</label>
-							<input id="fullname" name="fullname" placeholder="fullname" minlength="2" type="text"/>
+						<label for="fullname">Fullname:</label>
+						<input id="fullname" name="fullname" placeholder="fullname" minlength="2" type="text"/>
 						</p>
 						<p> <!-- email -->
-							<label for="email">Email:</label>
-							<input id="email" name="email" placeholder="email"/>
+						<label for="email">Email:</label>
+						<input id="email" name="email" placeholder="email"/>
 						<br>
 						<br>
-							<label for="birthday:">Birthday date:</label>
-							<input type="date" name="bday">
+						<label for="birthday:">Birthday date:</label>
+						<input type="date" name="bday">
 						<br>
 						<br>
-							<button class="submit" type="submit" >Submit</button>
-							<p class="message">Already registered? <a href="#" onclick="openPage('Login')">Login</a></p>
+						<button class="submit" type="submit" >Submit</button>
+						<p ip="messageRegister" class="message">Already registered? <a href="#" onclick="openPage('Login')">Login</a></p>
 						<br>
 						<br>
 					</form>
@@ -79,13 +85,15 @@
 			
 			<center>
 				<div id="Login" class="tabcontent">
-					<br>
-					<br>
-					<h3>Login</h3>
+					<h3 id="textLogin">Login</h3>
 					<form class="login-form" id="loginForm" autocomplete="off">
-						<p><input id =Username type="text" placeholder="username"/></p>
-						<p><input id=Password type="password" placeholder="password"/></p>
-						<button onclick="Login(event)">Login</button>
+						<input id =Username type="text" placeholder="username"/>
+						<br>
+						<br>
+						<input id=Password type="password" placeholder="password"/>
+						<br>
+						<br>
+						<button class="LoginBtn" onclick="Login(event)">Login</button>
 						<p class="message">Not registered? <a href="#" onclick="openPage('Register')">Register</a></p>
 					</form>
 				</div>
@@ -94,9 +102,7 @@
 			<div id="Configuration" class="tabcontent">
 				<center>
 					<form class="conform" name="configurationForm" id="configurationForm" autocomplete="off">
-						<br>
-						<br>
-						<h3>Configuration</h3>
+						<h3 id="textConf">Configuration</h3>
 						<!-- Game key -->
 						<br>
 
@@ -187,15 +193,14 @@
 			</div>
 	
 			<div id="Game" class="tabcontent">
-				<table style="width:100%">
-						<tr>
-							<td style="width:75%">
-								<br>
-								<br>
-								<label for="loginName">Username:</label>
-								<label id="loginName" type="text"></label>
+				<table>
+					<tr>
+						<td style="width:75%">
+							<br>
+							<label id="GameUser" for="loginName">Username:</label>
+							<label id="loginName" type="text"></label>
 							<center>
-								<h3>Pacman Game</h3>
+								<h3 id="textGame">Pacman Game</h3>
 								<div id="score">
 									<label for="lblScore">SCORE:</label>
 									<label id="lblScore" type="text"></label>
@@ -214,63 +219,61 @@
 								<div id="game">
 									<canvas id="canvas" height="700" width="700"></canvas>
 								</div>
-							<!--	<audio id = "targetSound" preload = "auto">
+								<!--<audio id = "targetSound" preload = "auto">
 									<source src = "sounds/blocker_hit.mp3" type = "audio/mpeg"/></audio>   change acording to our music
-						  		 -->
+					  		 -->
 							</center>
-							</td>
-							<td style="width:25%">
-								<p>Configuration</p> 
-								<br>
-								<br>
-								<!-- keys configuration -->
-								<label for="conUp">Up Button:</label>
-								<label for="valUp" id="valUp" ></label>
-								<br>
-								<br>
-								<label for="conDown">Down Button:</label>
-								<label for="valDown" id="valDown"></label>
-								<br>
-								<br>
-								<label for="conRight">Right Button:</label>
-								<label for="valRight" id="valRight"></label>
-								<br>
-								<br>
-								<label for="conLeft">Left Button:</label>
-								<label for="valLeft" id="valLeft"></label>
-								<!-- number of balls -->
-								<br>
-								<br>
-								<label for="conBalls">Numbers of balls:</label>
-								<label for="valBalls" id="valBalls"></label>
-
-								<!-- colors -->
-								<br>
-								<br>
-								<label for="con5_balls" id="con5_balls">5 balls color</label>
-								<!--<label id="val5_balls"></label>-->
-								<label for="con15_balls" id="con15_balls">15 balls color</label>
-								<!--<label id="val15_balls"></label>-->
-								<label for="con25_balls" id="con25_balls">25 balls color</label>
-								<!--<label id="val25_balls"></label>-->
-
-								<!-- time game -->
-								<br>
-								<br>
-								<label for="conTime">Total game time:</label>
-								<label for="valTime" id="valTime"></label>
-
-								<br>
-								<br>
-								<label for="conGhost">Number of ghosts:</label>
-								<label for="valGhost" id="valGhost"></label>
-
-								<!-- new game -->
-								<br>
-								<br>
-								<button id="newgame" class="newgame" type="submit" onclick="openPage('Configuration')">new game</button>
-							</td>
-						</tr>
+						</td>
+						<td>
+							<h3 id="textConfiguration">Configuration</h3> 
+							<br>
+							<br>
+							<!-- keys configuration -->
+							<label for="conUp">Up Button:</label>
+							<label for="valUp" id="valUp" ></label>
+							<br>
+							<br>
+							<label for="conDown">Down Button:</label>
+							<label for="valDown" id="valDown"></label>
+							<br>
+							<br>
+							<label for="conRight">Right Button:</label>
+							<label for="valRight" id="valRight"></label>
+							<br>
+							<br>
+							<label for="conLeft">Left Button:</label>
+							<label for="valLeft" id="valLeft"></label>
+							<!-- number of balls -->
+							<br>
+							<br>
+							<label for="conBalls">Numbers of balls:</label>
+							<label for="valBalls" id="valBalls"></label>
+							<!-- colors -->
+							<br>
+							<br>
+							<label for="con5_balls" id="con5_balls">5 balls color</label>
+							<br>
+							<!--<label id="val5_balls"></label>-->
+							<label for="con15_balls" id="con15_balls">15 balls color</label>
+							<br>
+							<!--<label id="val15_balls"></label>-->
+							<label for="con25_balls" id="con25_balls">25 balls color</label>
+							<!--<label id="val25_balls"></label>-->
+							<!-- time game -->
+							<br>
+							<br>
+							<label for="conTime">Total game time:</label>
+							<label for="valTime" id="valTime"></label>
+							<br>
+							<br>
+							<label for="conGhost">Number of ghosts:</label>
+							<label for="valGhost" id="valGhost"></label>
+							<!-- new game -->
+							<br>
+							<br>
+							<button id="newgame" class="newgame" type="submit" onclick="openPage('Configuration')">new game</button>
+						</td>
+					</tr>
 				</table>
 			</div>
 	</body>
