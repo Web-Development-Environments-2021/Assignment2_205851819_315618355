@@ -25,6 +25,9 @@ var in_game = false;
 var clock = new Object();
 var countClock;
 var addClock;
+//
+//  var music_play;
+
 
 //Dictionary of configurations
 var config = {
@@ -96,6 +99,12 @@ var dict = {
 $(document).ready(function(){
 	// Get the element with id="welconBtn" and click on it
 	document.getElementById("welconBtn").click();
+
+	window.addEventListener("keydown", function(event){
+		if(["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(event.code) >-1)
+			event.preventDefault();
+	}, false);
+
 
 	// signup validation
 	$("#signupForm").validate({
@@ -352,6 +361,7 @@ function startGame(){
 	put_foods();
 	put_pacman();
 	initialized_keys();
+	music_play.play();
 
 }
 
@@ -361,6 +371,8 @@ function initialized_boardGame(){
 	start_time = new Date();
 	countClock = start_time;
 	addClock = false;
+	//sound
+	music_play = document.getElementById( "gameSound" );
 	num_invalidation = 5; // reset the lives
 	board = [];
 	for (let i = 0; i < x_size; i++){
@@ -744,20 +756,24 @@ function UpdatePosition() {
 			// alert("You got 30 seconds more");
 		}
 		//end game when there is no lives
-		if(num_invalidation == 0){            
+		if(num_invalidation == 0){    
+			$("#lblInvalidation").text(num_invalidation);        
 			window.clearInterval(interval);
 			window.clearInterval(intervalGhost);
+			pause_game();
 			window.alert("Loser!");
 		}
 		else if(time_elapsed >= config['game_time']){
 			if(score < 100){
 				window.clearInterval(interval);
 				window.clearInterval(intervalGhost);
+				pause_game();
 				window.alert("You are better then " + score + " points!");
 			}
 			else{
 				window.clearInterval(interval);
 				window.clearInterval(intervalGhost);
+				pause_game();
 				window.alert("Winner!!!");
 			}
 		}
@@ -777,45 +793,48 @@ function eaten_clock(){
 }
 
 function intervalUpdateGhosts(){
-	for (let i=0; i<config['ghost_num']; i++) {
-		let tmp_row = ghost_pos[i].row;
-		let tmp_col = ghost_pos[i].col;
-		//remove ghost from last ghost
-		if(board[ghost_pos[i].row][ghost_pos[i].col].length == 1){
-			board[ghost_pos[i].row][ghost_pos[i].col] = [0];
+	if(in_game){
+		for (let i=0; i<config['ghost_num']; i++) {
+			let tmp_row = ghost_pos[i].row;
+			let tmp_col = ghost_pos[i].col;
+			//remove ghost from last ghost
+			if(board[ghost_pos[i].row][ghost_pos[i].col].length == 1){
+				board[ghost_pos[i].row][ghost_pos[i].col] = [0];
+			}
+			else{
+				let ind = findghost(6+i, ghost_pos[i].row, ghost_pos[i].col);
+				let len = board[ghost_pos[i].row][ghost_pos[i].col].length - 1;
+				// board[ghost_pos[i].row][ghost_pos[i].col].splice(ind,len);
+				board[ghost_pos[i].row][ghost_pos[i].col].splice(ind,1);
+			
+			}
+			if(board[ghost_pos[i].row][ghost_pos[i].col][1] != undefined)
+				console.log("last ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][1]);
+			else
+				console.log("last ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][0]);
+			let arr_pos = UpdatePositionGhost(ghost_pos[i]);
+			if(arr_pos == 0){
+				board[ghost_pos[i].row][ghost_pos[i].col] = [6+i];
+				console.log("current ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][0]);
+			}
+			else // if(arr_pos == 1)
+			{
+				board[ghost_pos[i].row][ghost_pos[i].col].push(6+i);
+				console.log("current ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][1]);
+			}	
+			ghost_pos[i].last_row = tmp_row;
+			ghost_pos[i].last_col = tmp_col;
+			console.log("arr of place 0: " + board[ghost_pos[i].last_row][ghost_pos[i].last_col][0]);
+			if(board[ghost_pos[i].last_row][ghost_pos[i].last_col].length > 1)
+				console.log("arr of place 1: " + board[ghost_pos[i].last_row][ghost_pos[i].last_col][1]);
 		}
-		else{
-			let ind = findghost(6+i, ghost_pos[i].row, ghost_pos[i].col);
-			board[ghost_pos[i].row][ghost_pos[i].col].splice(ind,1);
-	
-		}
-		if(board[ghost_pos[i].row][ghost_pos[i].col][1] != undefined)
-			console.log("last ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][1]);
-		else
-			console.log("last ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][0]);
-		let arr_pos = UpdatePositionGhost(ghost_pos[i]);
-		if(arr_pos == 0){
-			board[ghost_pos[i].row][ghost_pos[i].col] = [6+i];
-			console.log("current ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][0]);
-		}
-		else // if(arr_pos == 1)
-		{
-			board[ghost_pos[i].row][ghost_pos[i].col].push(6+i);
-			console.log("current ghost's position: " + board[ghost_pos[i].row][ghost_pos[i].col][1]);
-		}	
-		ghost_pos[i].last_row = tmp_row;
-		ghost_pos[i].last_col = tmp_col;
-		console.log("arr of place 0: " + board[ghost_pos[i].last_row][ghost_pos[i].last_col][0]);
-		if(board[ghost_pos[i].last_row][ghost_pos[i].last_col].length > 1)
-			console.log("arr of place 1: " + board[ghost_pos[i].last_row][ghost_pos[i].last_col][1]);
 	}
 	Draw();
+	
 }
 
 function UpdatePositionGhost(obj){
 
-	// issue with the keys, keys in dict change to string, need to change to array or find a function in google that change it back.
-	
 	if(obj != undefined){
 		let pos = {"Up": [obj.row-1, obj.col],
 					"Down": [obj.row+1, obj.col],
@@ -862,13 +881,14 @@ function UpdatePositionGhost(obj){
 //check where to put ghost in the squre's array 
 function check_position(i, j, ghost){
 	let arr_plc = board[i][j];
-	//opstacals or ghosts
+	//ghosts
 	for(let k=0; k<4; k++){
 		let sec_con = findghost(6+k, i, j);
 		console.log(sec_con);
-		if(sec_con == 0 || sec_con == 1) //find ghost
+		if(sec_con != -1) //find ghost
 			return -1;
 	}
+	//opstacals 
 	if(arr_plc[0] == 2){   
 		return -1;
 	}
@@ -881,6 +901,8 @@ function check_position(i, j, ghost){
 		return 0;
 	}//balls
 	if(board[i][j][0] == 3 || board[i][j][0] == 4 || board[i][j][0] == 5){
+		// if(board[i][j].lenght > 1 && board[i][j][1] == 11 )
+		// 	return board[i][j].lenght;
 		return 1;
 	}
 	return 1;
@@ -889,10 +911,13 @@ function check_position(i, j, ghost){
 
  //find the first index of the element
 function findghost(val, row, col){
-	if(board[row][col][0] == val){
-		return 0
-	}
-	else if(board[row][col][1] == val)
+	// for(let k=0; k<board[row][col].length; k++){
+		// if(board[row][col][k] == val)
+		// 	return k;
+	// }
+	if(board[row][col][0] == val)
+		return 0;
+	if(board[row][col][1] == val)
 		return 1;
 	return -1;
 }
@@ -931,13 +956,15 @@ function ghost_collision(){ ////////////
 
 
 function pause_game(){
-	canvas.width = canvas.width;
 	in_game = false;
+	music_play.pause();
 }
 
 function openPage(pageName) {
-	if(in_game && pageName != "Game")
+	if(in_game && pageName != "Game"){
+		canvas.width = canvas.width;
 		pause_game();
+	}
 	// Hide all elements with class="tabcontent" by default */
 	var i, tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
