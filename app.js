@@ -338,10 +338,18 @@ function configurationShow(){
 	//nubmers of balls
 	$("#valBalls").text(config['balls']);
 	//colors of balls
-	//NEEDED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	$("#val5_balls").text(config['5_balls']);
-	$("#val15_balls").text(config['15_balls']);
-	$("#val25_balls").text(config['25_balls']);
+	//ball 5 
+	let ball5 = document.getElementById('val5_balls');
+	ball5.style.color = config['5_balls'];
+	ball5.style.backgroundColor = config['5_balls'];
+	//ball 15
+	let ball15 = document.getElementById('val15_balls');
+	ball15.style.color = config['15_balls'];
+	ball15.style.backgroundColor = config['15_balls'];
+	//ball 25
+	let ball25 = document.getElementById('val25_balls');
+	ball25.style.color = config['25_balls'];
+	ball25.style.backgroundColor = config['25_balls'];
 	//game time
 	$("#valTime").text(config['game_time']);
 	//number of ghosts
